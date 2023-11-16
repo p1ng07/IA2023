@@ -35,6 +35,7 @@ def busca_peca():
 
     while color_is_valid(color) is False:
         color = color_sensor.color()
+    print("Cor da peça: ",color)
 
     motor.brake()
 
@@ -64,26 +65,28 @@ def posicao_inicial():
 
     motor.run(-200)
 
-    while(color!=Color.BLACK):
+    while(color==Color.BLACK):
         color = color_sensor.color()
-    print(color)
+    print("Cor:", color)
 
     motor.brake()
 
 def coloca_peca(pos):
     motor.reset_angle(0)
-    motor.run_angle(400,-(360+(390*pos)), Stop.BRAKE)
+    motor.run_angle(400,-(360*(pos+1)), Stop.BRAKE)
 
 def volta_inicio(pos):
     motor.reset_angle(0)
-    motor.run_angle(400,(360+(390*pos)), Stop.BRAKE)
+    motor.run_angle(400,(360*(pos+1)), Stop.BRAKE)
 
 def inicializa_robo():
     descer_elevador()
     fechar_garra()
     abrir_garra()
+
 n = 0;
-while(n <=7):
+
+while(n <=0):
     fechar_garra()
     inicializa_robo()
     busca_peca()
@@ -92,13 +95,15 @@ while(n <=7):
     subir_elevador()
     print(color_sensor.color())
     posicao_inicial()
-    pos = random.randint(0, 9)
-    print(n)
-    coloca_peca(n)
+    #pos = random.randint(0,25)
+    pos = 24
+    print(pos)
+    coloca_peca(pos)
     descer_elevador()
     abrir_garra() 
     subir_elevador()
-    volta_inicio(n)
-    inicializa_robo()
+    volta_inicio(pos)
     n += 1
 
+# while(1):
+#     print(color_sensor.color())
