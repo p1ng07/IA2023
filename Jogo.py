@@ -1,10 +1,13 @@
 import numpy as np
+import random
 
 tabuleiro = np.matrix([[" " ," " ," " ," ", " "], 
                        [" " ," " ," " ," ", " "],
                        [" " ," " ," " ," ", " "],
                        [" " ," " ," " ," ", " "],
                        [" " ," " ," " ," ", " "]])
+
+fila = []
 
 pontos = 0
 
@@ -20,6 +23,8 @@ def desenhaTabuleiro():
     print("+---+---+---+---+---+")
     print("|",tabuleiro.item(4,0),"|",tabuleiro.item(4,1),"|",tabuleiro.item(4,2),"|",tabuleiro.item(4,3),"|",tabuleiro.item(4,4),"|")
     print("+---+---+---+---+---+")
+    print("Next:", fila[0] if len(fila) > 0 else " ", "\nFila : ",fila)
+
 
 def verificaMenos(x, y):
     global pontos
@@ -161,6 +166,30 @@ def verificaMais(x, y):
             tabuleiro.itemset((x-1,y+1), " ")  
             tabuleiro.itemset((x+1,y+1), " ")  
 
+def verificaMaisGrande():
+     global pontos
+
+     # Mais 5x5
+     if(tabuleiro.item(0,2) == "+" and
+        tabuleiro.item(1,2) == "+" and
+        tabuleiro.item(2,2) == "+" and
+        tabuleiro.item(3,2) == "+" and
+        tabuleiro.item(4,2) == "+" and
+        tabuleiro.item(2,0) == "+" and
+        tabuleiro.item(2,1) == "+" and
+        tabuleiro.item(2,3) == "+" and
+        tabuleiro.item(2,4) == "+"):
+          pontos += pow(2,9)
+          tabuleiro.itemset((0,2)," ")
+          tabuleiro.itemset((1,2)," ")
+          tabuleiro.itemset((2,2)," ")
+          tabuleiro.itemset((3,2)," ")
+          tabuleiro.itemset((4,2)," ")
+          tabuleiro.itemset((2,0)," ")
+          tabuleiro.itemset((2,1)," ")
+          tabuleiro.itemset((2,3)," ")
+          tabuleiro.itemset((2,4)," ")
+
 def verificaX(x, y):
     global pontos
 
@@ -199,18 +228,38 @@ def verificaX(x, y):
                 tabuleiro.itemset((x+2,y)," ")
 
 def verificaPontuacao():
+    verificaMaisGrande()
     for i in range(5):
         for j in range(5):
-            print(i,"-",j)
             verificaMenos(i,j)
             verificaX(i,j)
             verificaBola(i,j)
             verificaMais(i,j)
 
-def insereSimbulo(simb, x, y):
+def insereSimbulo( x, y):
+    global fila
     if(tabuleiro.item(x,y)==" "):
-        tabuleiro.itemset((x,y),simb)
+        if(len(fila) > 0):
+            tabuleiro.itemset((x,y),fila[0])
+            fila.pop(0)
 
+
+def geraFila():
+    global fila
+    
+    for x in range(20):
+        ran = random.randint(0,3)
+        if(ran == 0):
+            fila.append("O")
+        elif(ran == 1):
+            fila.append("x")
+        elif(ran == 2):
+            fila.append("+")
+        else:
+            fila.append("-")
+                
+
+geraFila()
 while(1):
     print("\n\n\n\n\n\n")
     print("Pontuação: ",pontos)
@@ -219,5 +268,5 @@ while(1):
     n = input()
     pos1 = int(n)%5
     pos2 = int(n) / 5
-    insereSimbulo("+",int(pos2),int(pos1))
+    insereSimbulo(int(pos2),int(pos1))
     verificaPontuacao()
