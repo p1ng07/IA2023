@@ -1,4 +1,5 @@
 #!/usr/bin/env pybricks-micropython
+
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, TouchSensor, ColorSensor
 from pybricks.parameters import Port, Stop, Direction, Color
@@ -16,16 +17,26 @@ color_sensor = ColorSensor(Port.S4)
 
 rat_wheels = Motor(Port.B)
 
+# deteta se uma cor pertença a uma peça válida
+def color_is_valid(color):
+    return color == Color.RED or color == Color.BLUE or color == Color.GREEN or color == Color.YELLOW
 
-# Mapeamentos de cores para peças:
+
+# Traduz de uma cor, para a sua representacao em codigo
 # Blue = Traco
 # Red = Circulo
 # Yellow = Sinal de mais
 # Green = Sinal de multiplicacao
-
-# deteta se uma cor pertença a uma peça válida
-def color_is_valid(color):
-    return color == Color.RED or color == Color.BLUE or color == Color.GREEN or color == Color.YELLOW
+def traduz_cor_para_peca(cor: Color) -> str:
+  match cor:
+    case Color.RED:
+      return "-"
+    case Color.BLUE:
+      return "O"
+    case Color.YELLOW:
+      return "+"
+    case _:
+      return "x"
 
 # Anda para tras até encontrar uma cor válida
 # Retorna a cor válida que encontra
