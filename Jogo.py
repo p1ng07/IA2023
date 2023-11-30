@@ -1,272 +1,270 @@
-import numpy as np
 import random
 
-tabuleiro = np.matrix([[" " ," " ," " ," ", " "], 
-                       [" " ," " ," " ," ", " "],
-                       [" " ," " ," " ," ", " "],
-                       [" " ," " ," " ," ", " "],
-                       [" " ," " ," " ," ", " "]])
+class Tabuleiro:
+  def __init__(self):
+    self.pontos = 0
+    self.fila = []
+    self.tabuleiro = [" "] * 25
 
-fila = []
-
-pontos = 0
-
-def desenhaTabuleiro():
+  def getFila(self):
+    return self.fila
+  
+  def item(self,x,y):
+    return self.tabuleiro[x + y*5]
+    
+  def print(self):
     print("+---+---+---+---+---+")
-    print("|",tabuleiro.item(0,0),"|",tabuleiro.item(0,1),"|",tabuleiro.item(0,2),"|",tabuleiro.item(0,3),"|",tabuleiro.item(0,4),"|")
+    print("|",self.item(0,0),"|",self.item(0,1),"|",self.item(0,2),"|",self.item(0,3),"|",self.item(0,4),"|")
     print("+---+---+---+---+---+")
-    print("|",tabuleiro.item(1,0),"|",tabuleiro.item(1,1),"|",tabuleiro.item(1,2),"|",tabuleiro.item(1,3),"|",tabuleiro.item(1,4),"|")
+    print("|",self.item(1,0),"|",self.item(1,1),"|",self.item(1,2),"|",self.item(1,3),"|",self.item(1,4),"|")
     print("+---+---+---+---+---+")
-    print("|",tabuleiro.item(2,0),"|",tabuleiro.item(2,1),"|",tabuleiro.item(2,2),"|",tabuleiro.item(2,3),"|",tabuleiro.item(2,4),"|")
+    print("|",self.item(2,0),"|",self.item(2,1),"|",self.item(2,2),"|",self.item(2,3),"|",self.item(2,4),"|")
     print("+---+---+---+---+---+")
-    print("|",tabuleiro.item(3,0),"|",tabuleiro.item(3,1),"|",tabuleiro.item(3,2),"|",tabuleiro.item(3,3),"|",tabuleiro.item(3,4),"|")
+    print("|",self.item(3,0),"|",self.item(3,1),"|",self.item(3,2),"|",self.item(3,3),"|",self.item(3,4),"|")
     print("+---+---+---+---+---+")
-    print("|",tabuleiro.item(4,0),"|",tabuleiro.item(4,1),"|",tabuleiro.item(4,2),"|",tabuleiro.item(4,3),"|",tabuleiro.item(4,4),"|")
+    print("|",self.item(4,0),"|",self.item(4,1),"|",self.item(4,2),"|",self.item(4,3),"|",self.item(4,4),"|")
     print("+---+---+---+---+---+")
-    print("Next:", fila[0] if len(fila) > 0 else " ", "\nFila : ",fila)
+    print("Next:", self.fila[0] if len(self.fila) > 0 else " ", "\nFila : ",self.fila)
 
+  def itemset(self, x,y, piece: str):
+    self.tabuleiro[x + y*5] = piece
 
-def verificaMenos(x, y):
-    global pontos
-    if(tabuleiro.item(x,y) == "-" and y < 4):
-        if(tabuleiro.item(x, y+1) == "-"):
-            if(y+2 <= 4 and tabuleiro.item(x,y+2) == "-"):
-                pontos = pontos + 8 #pow(2, 2) 
-                tabuleiro.itemset((x,y)," ")
-                tabuleiro.itemset((x,y+1)," ")
-                tabuleiro.itemset((x,y+2)," ")
-            else:
-                pontos = pontos + 4 #pow(2, 3) 
-                tabuleiro.itemset((x,y)," ")
-                tabuleiro.itemset((x,y+1)," ")
-        
-def verificaBola(x,y):
-    global pontos
+  def verificaMenos(self,x, y):
+      if(self.item(x,y) == "-" and y < 4):
+          if(self.item(x, y+1) == "-"):
+              if(y+2 <= 4 and self.item(x,y+2) == "-"):
+                self.pontos += 8 #pow(2, 2) 
+                self.itemset(x,y," ")
+                self.itemset(x,y+1," ")
+                self.itemset(x,y+2," ")
+              else:
+                self.pontos += 4 #pow(2, 3) 
+                self.itemset(x,y," ")
+                self.itemset(x,y+1," ")
+              
+  def verificaBola(self,x,y):
+      # Verificar Bola 5x5
+      if(self.item(x,y) == "O" and x == 0 and y == 0):
+          if(self.item(x+1,y) == "O" and
+            self.item(x+2,y) == "O" and 
+            self.item(x+3,y) == "O" and 
+            self.item(x+4,y) == "O" and 
+            self.item(x,y+1) == "O" and 
+            self.item(x,y+2) == "O" and 
+            self.item(x,y+3) == "O" and 
+            self.item(x+4,y+1) == "O" and 
+            self.item(x+4,y+2) == "O" and 
+            self.item(x+4,y+3) == "O" and 
+            self.item(x,y+4) == "O" and 
+            self.item(x+1,y+4) == "O" and 
+            self.item(x+2,y+4) == "O" and 
+            self.item(x+3,y+4) == "O" and 
+            self.item(x+4,y+4) == "O"):
 
-    # Verificar Bola 5x5
-    if(tabuleiro.item(x,y) == "O" and x == 0 and y == 0):
-        if(tabuleiro.item(x+1,y) == "O" and
-           tabuleiro.item(x+2,y) == "O" and 
-           tabuleiro.item(x+3,y) == "O" and 
-           tabuleiro.item(x+4,y) == "O" and 
-           tabuleiro.item(x,y+1) == "O" and 
-           tabuleiro.item(x,y+2) == "O" and 
-           tabuleiro.item(x,y+3) == "O" and 
-           tabuleiro.item(x+4,y+1) == "O" and 
-           tabuleiro.item(x+4,y+2) == "O" and 
-           tabuleiro.item(x+4,y+3) == "O" and 
-           tabuleiro.item(x,y+4) == "O" and 
-           tabuleiro.item(x+1,y+4) == "O" and 
-           tabuleiro.item(x+2,y+4) == "O" and 
-           tabuleiro.item(x+3,y+4) == "O" and 
-           tabuleiro.item(x+4,y+4) == "O"):
-            
-            pontos += pow(2,16)
+              self.pontos += pow(2,16)
 
-            # Apagar peças
-            tabuleiro.itemset((x,y), " ") 
-            tabuleiro.itemset((x+1,y), " ") 
-            tabuleiro.itemset((x+2,y), " ")  
-            tabuleiro.itemset((x+3,y), " ")  
-            tabuleiro.itemset((x+4,y), " ")  
-            tabuleiro.itemset((x,y+1), " ")  
-            tabuleiro.itemset((x,y+2), " ")  
-            tabuleiro.itemset((x,y+3), " ")  
-            tabuleiro.itemset((x+4,y+1), " ")  
-            tabuleiro.itemset((x+4,y+2), " ")  
-            tabuleiro.itemset((x+4,y+3), " ")  
-            tabuleiro.itemset((x,y+4), " ")  
-            tabuleiro.itemset((x+1,y+4), " ")  
-            tabuleiro.itemset((x+2,y+4), " ")  
-            tabuleiro.itemset((x+3,y+4), " ")  
-            tabuleiro.itemset((x+4,y+4), " ")
+              # Apagar peças
+              self.itemset(x,y, " ") 
+              self.itemset(x+1,y, " ") 
+              self.itemset(x+2,y, " ")  
+              self.itemset(x+3,y, " ")  
+              self.itemset(x+4,y, " ")  
+              self.itemset(x,y+1, " ")  
+              self.itemset(x,y+2, " ")  
+              self.itemset(x,y+3, " ")  
+              self.itemset(x+4,y+1, " ")  
+              self.itemset(x+4,y+2, " ")  
+              self.itemset(x+4,y+3, " ")  
+              self.itemset(x,y+4, " ")  
+              self.itemset(x+1,y+4, " ")  
+              self.itemset(x+2,y+4, " ")  
+              self.itemset(x+3,y+4, " ")  
+              self.itemset(x+4,y+4, " ")
 
-    # bola 4x4
-    if(tabuleiro.item(x,y) == "O" and x < 2 and y < 2):
-            if(tabuleiro.item(x+1,y) == "O" and
-            tabuleiro.item(x+2,y) == "O" and 
-            tabuleiro.item(x+3,y) == "O" and 
-            tabuleiro.item(x,y+1) == "O" and 
-            tabuleiro.item(x,y+2) == "O" and 
-            tabuleiro.item(x,y+3) == "O" and 
-            tabuleiro.item(x+3,y+1) == "O" and 
-            tabuleiro.item(x+3,y+2) == "O" and 
-            tabuleiro.item(x+3,y+3) == "O" and 
-            tabuleiro.item(x,y+3) == "O" and 
-            tabuleiro.item(x+1,y+3) == "O" and 
-            tabuleiro.item(x+2,y+3) == "O" and 
-            tabuleiro.item(x+3,y+3) == "O"): 
-                
-                pontos += pow(2,12)
+      # bola 4x4
+      if(self.item(x,y) == "O" and x < 2 and y < 2):
+              if(self.item(x+1,y) == "O" and
+                self.item(x+2,y) == "O" and 
+                self.item(x+3,y) == "O" and 
+                self.item(x,y+1) == "O" and 
+                self.item(x,y+2) == "O" and 
+                self.item(x,y+3) == "O" and 
+                self.item(x+3,y+1) == "O" and 
+                self.item(x+3,y+2) == "O" and 
+                self.item(x+3,y+3) == "O" and 
+                self.item(x,y+3) == "O" and 
+                self.item(x+1,y+3) == "O" and 
+                self.item(x+2,y+3) == "O" and 
+                self.item(x+3,y+3) == "O"): 
 
-                # Apagar peças
-                tabuleiro.itemset((x,y), " ") 
-                tabuleiro.itemset((x+1,y), " ") 
-                tabuleiro.itemset((x+2,y), " ")  
-                tabuleiro.itemset((x+3,y), " ")  
-                tabuleiro.itemset((x,y+1), " ")  
-                tabuleiro.itemset((x,y+2), " ")  
-                tabuleiro.itemset((x,y+3), " ")  
-                tabuleiro.itemset((x+3,y+1), " ")  
-                tabuleiro.itemset((x+3,y+2), " ")  
-                tabuleiro.itemset((x+3,y+3), " ")  
-                tabuleiro.itemset((x,y+3), " ")  
-                tabuleiro.itemset((x+1,y+3), " ")  
-                tabuleiro.itemset((x+2,y+3), " ")  
-                tabuleiro.itemset((x+3,y+3), " ")  
+                  self.pontos += pow(2,12)
 
-    # Bola 3x3
-    if(tabuleiro.item(x,y) == "O" and x < 3 and y < 3):
-        if(tabuleiro.item(x+1,y) == "O" and
-            tabuleiro.item(x+2,y) == "O" and 
-            tabuleiro.item(x,y+1) == "O" and 
-            tabuleiro.item(x,y+2) == "O" and 
-            tabuleiro.item(x+2,y+1) == "O" and 
-            tabuleiro.item(x+2,y+2) == "O" and 
-            tabuleiro.item(x+1,y+2) == "O"): 
-                
-                pontos += pow(2,8)
+                  # Apagar peças
+                  self.itemset(x,y, " ") 
+                  self.itemset(x+1,y, " ") 
+                  self.itemset(x+2,y, " ")  
+                  self.itemset(x+3,y, " ")  
+                  self.itemset(x,y+1, " ")  
+                  self.itemset(x,y+2, " ")  
+                  self.itemset(x,y+3, " ")  
+                  self.itemset(x+3,y+1, " ")  
+                  self.itemset(x+3,y+2, " ")  
+                  self.itemset(x+3,y+3, " ")  
+                  self.itemset(x,y+3, " ")  
+                  self.itemset(x+1,y+3, " ")  
+                  self.itemset(x+2,y+3, " ")  
+                  self.itemset(x+3,y+3, " ")  
 
-                # Apagar peças
-                tabuleiro.itemset((x,y), " ") 
-                tabuleiro.itemset((x+1,y), " ") 
-                tabuleiro.itemset((x+2,y), " ")  
-                tabuleiro.itemset((x,y+1), " ")  
-                tabuleiro.itemset((x,y+2), " ")  
-                tabuleiro.itemset((x+2,y+1), " ")  
-                tabuleiro.itemset((x+2,y+2), " ")  
-                tabuleiro.itemset((x+1,y+2), " ")
-    # Bola 2x2
-    if(tabuleiro.item(x,y) == "O" and x < 4 and y < 4):
-        if(tabuleiro.item(x+1,y) == "O" and
-            tabuleiro.item(x,y+1) == "O" and 
-            tabuleiro.item(x+1,y+1) == "O"):
-                
-                pontos += pow(2,4)
+      # Bola 3x3
+      if(self.item(x,y) == "O" and x < 3 and y < 3):
+          if(self.item(x+1,y) == "O" and
+            self.item(x+2,y) == "O" and 
+            self.item(x,y+1) == "O" and 
+            self.item(x,y+2) == "O" and 
+            self.item(x+2,y+1) == "O" and 
+            self.item(x+2,y+2) == "O" and 
+            self.item(x+1,y+2) == "O"): 
 
-                # Apagar peças
-                tabuleiro.itemset((x,y), " ") 
-                tabuleiro.itemset((x+1,y), " ") 
-                tabuleiro.itemset((x+1,y+1), " ")  
-                tabuleiro.itemset((x,y+1), " ")  
+                  self.pontos += pow(2,8)
 
-def verificaMais(x, y):
-    global pontos
+                  # Apagar peças
+                  self.itemset(x,y, " ") 
+                  self.itemset(x+1,y, " ") 
+                  self.itemset(x+2,y, " ")  
+                  self.itemset(x,y+1, " ")  
+                  self.itemset(x,y+2, " ")  
+                  self.itemset(x+2,y+1, " ")  
+                  self.itemset(x+2,y+2, " ")  
+                  self.itemset(x+1,y+2, " ")
+                  # Bola 2x2
+      if(self.item(x,y) == "O" and x < 4 and y < 4):
+          if(self.item(x+1,y) == "O" and
+            self.item(x,y+1) == "O" and 
+            self.item(x+1,y+1) == "O"):
 
-    # Mais 3x3
-    if(tabuleiro.item(x,y) == "+" and x != 0 and x!= 4 and  y<3 ):
-        if(tabuleiro.item(x,y+1) == "+" and
-            tabuleiro.item(x,y+2) == "+" and 
-            tabuleiro.item(x-1,y+1) == "+" and 
-            tabuleiro.item(x+1,y+1) == "+" ): 
-            pontos += pow(2,5)
-            tabuleiro.itemset((x,y), " ") 
-            tabuleiro.itemset((x,y+1), " ") 
-            tabuleiro.itemset((x,y+2), " ")  
-            tabuleiro.itemset((x-1,y+1), " ")  
-            tabuleiro.itemset((x+1,y+1), " ")  
+                  self.pontos += pow(2,4)
 
-def verificaMaisGrande():
-     global pontos
+                  # Apagar peças
+                  self.itemset(x,y, " ") 
+                  self.itemset(x+1,y, " ") 
+                  self.itemset(x+1,y+1, " ")  
+                  self.itemset(x,y+1, " ")  
 
-     # Mais 5x5
-     if(tabuleiro.item(0,2) == "+" and
-        tabuleiro.item(1,2) == "+" and
-        tabuleiro.item(2,2) == "+" and
-        tabuleiro.item(3,2) == "+" and
-        tabuleiro.item(4,2) == "+" and
-        tabuleiro.item(2,0) == "+" and
-        tabuleiro.item(2,1) == "+" and
-        tabuleiro.item(2,3) == "+" and
-        tabuleiro.item(2,4) == "+"):
-          pontos += pow(2,9)
-          tabuleiro.itemset((0,2)," ")
-          tabuleiro.itemset((1,2)," ")
-          tabuleiro.itemset((2,2)," ")
-          tabuleiro.itemset((3,2)," ")
-          tabuleiro.itemset((4,2)," ")
-          tabuleiro.itemset((2,0)," ")
-          tabuleiro.itemset((2,1)," ")
-          tabuleiro.itemset((2,3)," ")
-          tabuleiro.itemset((2,4)," ")
+  def verificaMais(self,x, y):
+      # Mais 3x3
+      if(self.item(x,y) == "+" and x != 0 and x!= 4 and  y<3 ):
+          if(self.item(x,y+1) == "+" and
+            self.item(x,y+2) == "+" and 
+            self.item(x-1,y+1) == "+" and 
+            self.item(x+1,y+1) == "+" ): 
+            self.pontos += pow(2,5)
+            self.itemset(x,y, " ") 
+            self.itemset(x,y+1, " ") 
+            self.itemset(x,y+2, " ")  
+            self.itemset(x-1,y+1, " ")  
+            self.itemset(x+1,y+1, " ")  
 
-def verificaX(x, y):
-    global pontos
+  def verificaMaisGrande(self):
+      # Mais 5x5
+      if(self.item(0,2) == "+" and
+          self.item(1,2) == "+" and
+          self.item(2,2) == "+" and
+          self.item(3,2) == "+" and
+          self.item(4,2) == "+" and
+          self.item(2,0) == "+" and
+          self.item(2,1) == "+" and
+          self.item(2,3) == "+" and
+          self.item(2,4) == "+"):
+        self.pontos += pow(2,9)
+        self.itemset(0,2," ")
+        self.itemset(1,2," ")
+        self.itemset(2,2," ")
+        self.itemset(3,2," ")
+        self.itemset(4,2," ")
+        self.itemset(2,0," ")
+        self.itemset(2,1," ")
+        self.itemset(2,3," ")
+        self.itemset(2,4," ")
 
-    # verificar x 9 peças 5x5
-    if(tabuleiro.item(x,y) == "x" and y == 0 and x == 0):
-        if(tabuleiro.item(x+1,y+1) == "x" and
-           tabuleiro.item(x+2, y+2) == "x" and 
-           tabuleiro.item(x+3,y+3) == "x" and
-           tabuleiro.item(x+4, y+4)=="x" and
-           tabuleiro.item(x, y+4) == "x" and
-           tabuleiro.item(x+4, y) == "x" and
-           tabuleiro.item(x+1, y+3) == "x" and
-           tabuleiro.item(x+3, y+1) == "x"):
-            pontos = pontos + pow(2,9) 
-            tabuleiro.itemset((x,y)," ")
-            tabuleiro.itemset((x+1,y+1)," ")
-            tabuleiro.itemset((x+2, y+2) ," ")
-            tabuleiro.itemset((x+3,y+3)," ")
-            tabuleiro.itemset((x+4, y+4)," ")
-            tabuleiro.itemset((x, y+4)," ")
-            tabuleiro.itemset((x+4, y)," ")
-            tabuleiro.itemset((x+1, y+3)," ")
-            tabuleiro.itemset((x+3, y+1)," ")
+  def verificaX(self,x, y):
+      # verificar x 9 peças 5x5
+      if(self.item(x,y) == "x" and y == 0 and x == 0):
+          if(self.item(x+1,y+1) == "x" and
+            self.item(x+2, y+2) == "x" and 
+            self.item(x+3,y+3) == "x" and
+            self.item(x+4, y+4)=="x" and
+            self.item(x, y+4) == "x" and
+            self.item(x+4, y) == "x" and
+            self.item(x+1, y+3) == "x" and
+            self.item(x+3, y+1) == "x"):
+            self.pontos = self.pontos + pow(2,9) 
+            self.itemset(x,y," ")
+            self.itemset(x+1,y+1," ")
+            self.itemset(x+2, y+2 ," ")
+            self.itemset(x+3,y+3," ")
+            self.itemset(x+4, y+4," ")
+            self.itemset(x, y+4," ")
+            self.itemset(x+4, y," ")
+            self.itemset(x+1, y+3," ")
+            self.itemset(x+3, y+1," ")
 
-    # verificar x 5 peças 3x3
-    if(tabuleiro.item(x,y) == "x" and y < 3 and x < 3): 
-        if(tabuleiro.item(x, y+2) == "x" and #
-           tabuleiro.item(x+2,y) == "x" and
-           tabuleiro.item(x+1, y+1)=="x" and
-           tabuleiro.item(x+2, y+2) == "x"):
-                pontos = pontos + pow(2, 5) 
-                tabuleiro.itemset((x,y)," ")
-                tabuleiro.itemset((x,y+2)," ")
-                tabuleiro.itemset((x+1,y+1)," ")
-                tabuleiro.itemset((x+2,y+2)," ")
-                tabuleiro.itemset((x+2,y)," ")
+      # verificar x 5 peças 3x3
+      if(self.item(x,y) == "x" and y < 3 and x < 3): 
+          if(self.item(x, y+2) == "x" and #
+            self.item(x+2,y) == "x" and
+            self.item(x+1, y+1)=="x" and
+            self.item(x+2, y+2) == "x"):
+            self.pontos = self.pontos + pow(2, 5) 
+            self.itemset(x,y," ")
+            self.itemset(x,y+2," ")
+            self.itemset(x+1,y+1," ")
+            self.itemset(x+2,y+2," ")
+            self.itemset(x+2,y," ")
 
-def verificaPontuacao():
-    verificaMaisGrande()
+  def insereNaFila(self, piece: str):
+    self.fila.append(piece)
+
+  def atualizaPontuacao(self):
+    self.verificaMaisGrande()
     for i in range(5):
         for j in range(5):
-            verificaMenos(i,j)
-            verificaX(i,j)
-            verificaBola(i,j)
-            verificaMais(i,j)
+          self.verificaMenos(i,j)
+          self.verificaX(i,j)
+          self.verificaBola(i,j)
+          self.verificaMais(i,j)
 
-def insereSimbulo( x, y):
-    global fila
-    if(tabuleiro.item(x,y)==" "):
-        if(len(fila) > 0):
-            tabuleiro.itemset((x,y),fila[0])
-            fila.pop(0)
+  def insereSimbolo(self, x, y):
+      if(self.item(x,y)==" "):
+          if(len(self.fila) > 0):
+            self.itemset(x,y,self.fila[0])
+            self.fila.pop(0)
 
 
-def geraFila():
-    global fila
-    
-    for x in range(20):
-        ran = random.randint(0,3)
-        if(ran == 0):
-            fila.append("O")
-        elif(ran == 1):
-            fila.append("x")
-        elif(ran == 2):
-            fila.append("+")
-        else:
-            fila.append("-")
-                
+def geraFila(fila):
+  for x in range(20):
+    ran = random.randint(0,3)
+    if(ran == 0):
+      fila.append("O")
+    elif(ran == 1):
+      fila.append("x")
+    elif(ran == 2):
+      fila.append("+")
+    else:
+      fila.append("-")
+          
 
-geraFila()
+tabuleiro = Tabuleiro()
+
+geraFila(tabuleiro.getFila())
 while(1):
-    print("\n\n\n\n\n\n")
-    print("Pontuação: ",pontos)
-    desenhaTabuleiro()
-    print("Escolha a posição:")
-    n = input()
+  print("\n\n\n\n\n\n")
+  print("Pontuação: ",tabuleiro.pontos)
+  tabuleiro.print()
+  print("Escolha a posição:")
+  user_input = input();
+  if user_input != "" and user_input.isnumeric():
+    n = int(user_input)
     pos1 = int(n)%5
     pos2 = int(n) / 5
-    insereSimbulo(int(pos2),int(pos1))
-    verificaPontuacao()
+    tabuleiro.insereSimbolo(int(pos2),int(pos1))
+    tabuleiro.atualizaPontuacao()
