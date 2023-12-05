@@ -12,6 +12,12 @@ class Tabuleiro:
   def item(self,x,y):
     return self.tabuleiro[x + y*5]
     
+  def posicaoValida(self,x,y):
+    if(self.tabuleiro[x+y*5] == " "):
+       return True
+    else:
+       return False
+
   def print(self):
     print("+---+---+---+---+---+")
     print("|",self.item(0,0),"|",self.item(0,1),"|",self.item(0,2),"|",self.item(0,3),"|",self.item(0,4),"|")
@@ -253,18 +259,18 @@ def geraFila(fila):
       fila.append("-")
           
 
-tabuleiro = Tabuleiro()
+# tabuleiro = Tabuleiro()
 
-geraFila(tabuleiro.getFila())
-while(1):
-  print("\n\n\n\n\n\n")
-  print("Pontuação: ",tabuleiro.pontos)
-  tabuleiro.print()
-  print("Escolha a posição:")
-  user_input = input();
-  if user_input != "" and user_input.isnumeric():
-    n = int(user_input)
-    pos1 = int(n)%5
-    pos2 = int(n) / 5
-    tabuleiro.insereSimbolo(int(pos2),int(pos1))
-    tabuleiro.atualizaPontuacao()
+# geraFila(tabuleiro.getFila())
+# while(1):
+#   print("\n\n\n\n\n\n")
+#   print("Pontuação: ",tabuleiro.pontos)
+#   tabuleiro.print()
+#   print("Escolha a posição:")
+#   user_input = input();
+#   if user_input != "" and user_input.isnumeric():
+#     n = int(user_input)
+#     pos1 = int(n)%5
+#     pos2 = int(n) / 5
+#     tabuleiro.insereSimbolo(int(pos2),int(pos1))
+#     tabuleiro.atualizaPontuacao()
