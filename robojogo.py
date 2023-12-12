@@ -91,11 +91,11 @@ def posicao_inicial():
 
 def coloca_peca(pos):
     motor.reset_angle(0)
-    motor.run_angle(400,-(360*(pos+1)), Stop.BRAKE)
+    motor.run_angle(400,-(356*(pos+1)), Stop.BRAKE)
 
 def volta_inicio(pos):
     motor.reset_angle(0)
-    motor.run_angle(400,(360*(pos+2)), Stop.BRAKE)
+    motor.run_angle(400,(356*(pos+2)), Stop.BRAKE)
 
 def inicializa_robo():
     descer_elevador()
@@ -105,7 +105,7 @@ def inicializa_robo():
 n = 0;
 
 
-while(n <= 3):
+while(1):
     print("Pontos: ", tabuleiro.pontos)
     tabuleiro.print()
     fechar_garra()
