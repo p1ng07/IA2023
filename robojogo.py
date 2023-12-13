@@ -84,18 +84,18 @@ def posicao_inicial():
 
     while(color == Color.BLACK):
         color = color_sensor.color()
-        print(color)
+        #print(color)
     print("Inicio:", color)
 
     motor.brake()
 
 def coloca_peca(pos):
     motor.reset_angle(0)
-    motor.run_angle(400,-(356*(pos+1)), Stop.BRAKE)
+    motor.run_angle(400,-(351*(pos+1)), Stop.BRAKE)
 
 def volta_inicio(pos):
     motor.reset_angle(0)
-    motor.run_angle(400,(356*(pos+2)), Stop.BRAKE)
+    motor.run_angle(400,(351*(pos+2)), Stop.BRAKE)
 
 def inicializa_robo():
     descer_elevador()
@@ -121,7 +121,7 @@ while(1):
     pos = int(user_input)
     pos1 = int(pos)%5
     pos2 = int(pos)/5
-    while (False == tabuleiro.posicaoValida(int(pos1),int(pos2))):
+    while (False == tabuleiro.posicaoValida(int(pos2),int(pos1))):
         # pos = random.randint(0,24)
         user_input = input();
         pos = int(user_input)
@@ -129,7 +129,7 @@ while(1):
         pos2 = int(pos)/5
 
     tabuleiro.insereSimbolo(int(pos2),int(pos1))
-    print(pos," x:",int(pos1), " y:", int(pos2))
+    print(pos," x:",int(pos2), " y:", int(pos1))
     coloca_peca(pos)
     descer_elevador()
     abrir_garra() 
