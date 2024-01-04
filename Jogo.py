@@ -245,18 +245,17 @@ class Tabuleiro:
             self.itemset(x,y,self.fila[0])
             self.fila.pop(0)
 
-
-def geraFila(fila):
-  for x in range(20):
-    ran = random.randint(0,3)
-    if(ran == 0):
-      fila.append("O")
-    elif(ran == 1):
-      fila.append("x")
-    elif(ran == 2):
-      fila.append("+")
-    else:
-      fila.append("-")
+  def geraFila(self):
+    for x in range(20):
+      ran = random.randint(0,3)
+      if(ran == 0):
+        self.fila.append("O")
+      elif(ran == 1):
+        self.fila.append("x")
+      elif(ran == 2):
+        self.fila.append("+")
+      else:
+        self.fila.append("-")
           
 
 # tabuleiro = Tabuleiro()
