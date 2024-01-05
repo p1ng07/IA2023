@@ -246,11 +246,31 @@ def pecasReserva(tabuleiro):
             print("Figura de 4 com a peça Bola.")
             pecaBola -= 4
         elif(pecaMenos >= 3):
-            print("Figura de 3 com a peça Menos.")
-            pecaMenos -= 3
+            for i in range(24):
+                if((i>=0 and i<=2) or (i>=5 and i<=7) or (i>=10 and i<=12) or (i>=15 and i<=17) or (i>=20 and i<=22)):
+                    if(
+                        (tabuleiroHeuristica[i] == " " or tabuleiroHeuristica[i] == "-") and
+                        (tabuleiroHeuristica[i+1] == " " or tabuleiroHeuristica[i+1] == "-")  and
+                        (tabuleiroHeuristica[i+2] == " " or tabuleiroHeuristica[i+2] == "-") 
+                       ):
+                        reservaPosicao(i)
+                        reservaPosicao(i+1)
+                        reservaPosicao(i+2)
+                        print("Figura de 3 com a peça Menos.")
+                        pecaMenos -= 3
+                        break
         elif(pecaMenos >= 2):
-            print("Figura de 2 com a peça Menos.")
-            pecaMenos -= 2
+            for i in range(24):
+                if((i>=0 and i<=3) or (i>=5 and i<=8) or (i>=10 and i<=13) or (i>=15 and i<=18) or (i>=20 and i<=23)):
+                    if(
+                        (tabuleiroHeuristica[i] == " " or tabuleiroHeuristica[i] == "-") and
+                        (tabuleiroHeuristica[i+1] == " " or tabuleiroHeuristica[i+1] == "-") 
+                       ):
+                        reservaPosicao(i)
+                        reservaPosicao(i+1)
+                        print("Figura de 2 com a peça Menos.")
+                        pecaMenos -= 2
+                        break
         else:
             break
 
