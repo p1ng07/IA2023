@@ -11,11 +11,9 @@ pecaMenos = 0
 pecaMais = 0
 pecaBola = 0
 tamanhoTabuleiro = 25
-arrayX = []
-arrayMais = []
-arrayMenos = []
-arrayBola = []
 
+# decide se é para por a próxima peça no início ou fim do tabuleiro relativamente à heurística
+por_inicio_da_heuristica = True
 
 def heristica_gulosa(tabuleiro):
     if(tabuleiro.fila[0] == "x"):
@@ -76,30 +74,30 @@ def getNumeroPecas(tabuleiro):
             pecaBola += 1
 
 def reservaPosicao(pos, peca):
-    global tabuleiroHeuristica
-    if(tabuleiroHeuristica[pos] == " "):
-        tabuleiroHeuristica[pos] = peca
+    global tabuleiroHeuristica, tabuleiro
+    if(tabuleiro.tabuleiro[pos] == " "):
+        tabuleiroHeuristica[pos] = str(peca)
 
 def pecasReserva(tabuleiro):
     global pecaBola, pecaMais, pecaMenos, pecaX, tabuleiroHeuristica
 
     if(pecaBola >= 16):
         if(
-            (tabuleiroHeuristica[0] == " " or tabuleiroHeuristica[0] == "O" )and
-            (tabuleiroHeuristica[1] == " " or tabuleiroHeuristica[1] == "O") and
-            (tabuleiroHeuristica[2] == " " or tabuleiroHeuristica[2] == "O") and
-            (tabuleiroHeuristica[3] == " " or tabuleiroHeuristica[3] == "O") and
-            (tabuleiroHeuristica[4] == " " or tabuleiroHeuristica[4] == "O") and
-            (tabuleiroHeuristica[5] == " " or tabuleiroHeuristica[5] == "O") and
-            (tabuleiroHeuristica[9] == " " or tabuleiroHeuristica[9] == "O") and
-            (tabuleiroHeuristica[10] == " " or tabuleiroHeuristica[10] == "O") and
-            (tabuleiroHeuristica[14] == " " or tabuleiroHeuristica[14] == "O") and
-            (tabuleiroHeuristica[15] == " " or tabuleiroHeuristica[15] == "O") and
-            (tabuleiroHeuristica[20] == " " or tabuleiroHeuristica[20] == "O") and
-            (tabuleiroHeuristica[21] == " " or tabuleiroHeuristica[21] == "O") and
-            (tabuleiroHeuristica[22] == " " or tabuleiroHeuristica[22] == "O") and
-            (tabuleiroHeuristica[23] == " " or tabuleiroHeuristica[23] == "O") and
-            (tabuleiroHeuristica[24] == " " or tabuleiroHeuristica[24] == "O") 
+            (tabuleiro.tabuleiro[0] == " " or tabuleiro.tabuleiro[0] == "O" )and
+            (tabuleiro.tabuleiro[1] == " " or tabuleiro.tabuleiro[1] == "O") and
+            (tabuleiro.tabuleiro[2] == " " or tabuleiro.tabuleiro[2] == "O") and
+            (tabuleiro.tabuleiro[3] == " " or tabuleiro.tabuleiro[3] == "O") and
+            (tabuleiro.tabuleiro[4] == " " or tabuleiro.tabuleiro[4] == "O") and
+            (tabuleiro.tabuleiro[5] == " " or tabuleiro.tabuleiro[5] == "O") and
+            (tabuleiro.tabuleiro[9] == " " or tabuleiro.tabuleiro[9] == "O") and
+            (tabuleiro.tabuleiro[10] == " " or tabuleiro.tabuleiro[10] == "O") and
+            (tabuleiro.tabuleiro[14] == " " or tabuleiro.tabuleiro[14] == "O") and
+            (tabuleiro.tabuleiro[15] == " " or tabuleiro.tabuleiro[15] == "O") and
+            (tabuleiro.tabuleiro[20] == " " or tabuleiro.tabuleiro[20] == "O") and
+            (tabuleiro.tabuleiro[21] == " " or tabuleiro.tabuleiro[21] == "O") and
+            (tabuleiro.tabuleiro[22] == " " or tabuleiro.tabuleiro[22] == "O") and
+            (tabuleiro.tabuleiro[23] == " " or tabuleiro.tabuleiro[23] == "O") and
+            (tabuleiro.tabuleiro[24] == " " or tabuleiro.tabuleiro[24] == "O") 
             ):
             reservaPosicao(0, 0)
             reservaPosicao(1, 0)
@@ -122,18 +120,18 @@ def pecasReserva(tabuleiro):
         for i in range(24):
             if(i == 0 or i == 1 or i == 5 or i == 6):
                 if(
-                    (tabuleiroHeuristica[i] == " " or tabuleiroHeuristica[i] == "O") and
-                    (tabuleiroHeuristica[i+1] == " " or tabuleiroHeuristica[i+1] == "O") and
-                    (tabuleiroHeuristica[i+2] == " " or tabuleiroHeuristica[i+2] == "O") and
-                    (tabuleiroHeuristica[i+3] == " " or tabuleiroHeuristica[i+3] == "O") and
-                    (tabuleiroHeuristica[i+5] == " " or tabuleiroHeuristica[i+5] == "O") and
-                    (tabuleiroHeuristica[i+8] == " " or tabuleiroHeuristica[i+8] == "O") and
-                    (tabuleiroHeuristica[i+10] == " " or tabuleiroHeuristica[i+10] == "O") and
-                    (tabuleiroHeuristica[i+13] == " " or tabuleiroHeuristica[i+13] == "O") and
-                    (tabuleiroHeuristica[i+15] == " " or tabuleiroHeuristica[i+15] == "O") and
-                    (tabuleiroHeuristica[i+16] == " " or tabuleiroHeuristica[i+16] == "O") and
-                    (tabuleiroHeuristica[i+17] == " " or tabuleiroHeuristica[i+17] == "O") and
-                    (tabuleiroHeuristica[i+18] == " " or tabuleiroHeuristica[i+18] == "O" )
+                    (tabuleiro.tabuleiro[i] == " " or tabuleiro.tabuleiro[i] == "O") and
+                    (tabuleiro.tabuleiro[i+1] == " " or tabuleiro.tabuleiro[i+1] == "O") and
+                    (tabuleiro.tabuleiro[i+2] == " " or tabuleiro.tabuleiro[i+2] == "O") and
+                    (tabuleiro.tabuleiro[i+3] == " " or tabuleiro.tabuleiro[i+3] == "O") and
+                    (tabuleiro.tabuleiro[i+5] == " " or tabuleiro.tabuleiro[i+5] == "O") and
+                    (tabuleiro.tabuleiro[i+8] == " " or tabuleiro.tabuleiro[i+8] == "O") and
+                    (tabuleiro.tabuleiro[i+10] == " " or tabuleiro.tabuleiro[i+10] == "O") and
+                    (tabuleiro.tabuleiro[i+13] == " " or tabuleiro.tabuleiro[i+13] == "O") and
+                    (tabuleiro.tabuleiro[i+15] == " " or tabuleiro.tabuleiro[i+15] == "O") and
+                    (tabuleiro.tabuleiro[i+16] == " " or tabuleiro.tabuleiro[i+16] == "O") and
+                    (tabuleiro.tabuleiro[i+17] == " " or tabuleiro.tabuleiro[i+17] == "O") and
+                    (tabuleiro.tabuleiro[i+18] == " " or tabuleiro.tabuleiro[i+18] == "O" )
                 ):
                     reservaPosicao(i,0)
                     reservaPosicao(i+1,0)
@@ -152,18 +150,18 @@ def pecasReserva(tabuleiro):
                     break
     elif(pecaX >= 9):
         if(
-            (tabuleiroHeuristica[0] == " " or tabuleiroHeuristica[0] == "x") and
-            (tabuleiroHeuristica[4] == " " or tabuleiroHeuristica[4] == "x") and
-            (tabuleiroHeuristica[6] == " " or tabuleiroHeuristica[6] == "x") and
-            (tabuleiroHeuristica[8] == " " or tabuleiroHeuristica[8] == "x") and
-            (tabuleiroHeuristica[12] == " " or tabuleiroHeuristica[12] == "x") and
-            (tabuleiroHeuristica[16] == " " or tabuleiroHeuristica[16] == "x") and
-            (tabuleiroHeuristica[18] == " " or tabuleiroHeuristica[18] == "x") and
-            (tabuleiroHeuristica[20] == " " or tabuleiroHeuristica[20] == "x") and
-            (tabuleiroHeuristica[24] == " " or tabuleiroHeuristica[24] == "x") 
+            (tabuleiro.tabuleiro[0] == " " or tabuleiro.tabuleiro[0] == "x") and
+            (tabuleiro.tabuleiro[4] == " " or tabuleiro.tabuleiro[4] == "x") and
+            (tabuleiro.tabuleiro[6] == " " or tabuleiro.tabuleiro[6] == "x") and
+            (tabuleiro.tabuleiro[8] == " " or tabuleiro.tabuleiro[8] == "x") and
+            (tabuleiro.tabuleiro[12] == " " or tabuleiro.tabuleiro[12] == "x") and
+            (tabuleiro.tabuleiro[16] == " " or tabuleiro.tabuleiro[16] == "x") and
+            (tabuleiro.tabuleiro[18] == " " or tabuleiro.tabuleiro[18] == "x") and
+            (tabuleiro.tabuleiro[20] == " " or tabuleiro.tabuleiro[20] == "x") and
+            (tabuleiro.tabuleiro[24] == " " or tabuleiro.tabuleiro[24] == "x") 
             ):
             reservaPosicao(0 ,2)
-            reservaPosicao(2 ,2)
+            reservaPosicao(4 ,2)
             reservaPosicao(6 ,2)
             reservaPosicao(8 ,2)
             reservaPosicao(12 ,2)
@@ -175,15 +173,15 @@ def pecasReserva(tabuleiro):
             pecaX -= 9
     elif(pecaMais >= 9):
         if(
-            (tabuleiroHeuristica[0] == " " or tabuleiroHeuristica[0] == "+") and
-            (tabuleiroHeuristica[4] == " " or tabuleiroHeuristica[4] == "+") and
-            (tabuleiroHeuristica[6] == " " or tabuleiroHeuristica[6] == "+") and
-            (tabuleiroHeuristica[8] == " " or tabuleiroHeuristica[8] == "+") and
-            (tabuleiroHeuristica[12] == " " or tabuleiroHeuristica[12] == "+") and
-            (tabuleiroHeuristica[16] == " " or tabuleiroHeuristica[16] == "+") and
-            (tabuleiroHeuristica[18] == " " or tabuleiroHeuristica[18] == "+") and
-            (tabuleiroHeuristica[20] == " " or tabuleiroHeuristica[20] == "+") and
-            (tabuleiroHeuristica[24] == " " or tabuleiroHeuristica[24] == "+") 
+            (tabuleiro.tabuleiro[0] == " " or tabuleiro.tabuleiro[0] == "+") and
+            (tabuleiro.tabuleiro[4] == " " or tabuleiro.tabuleiro[4] == "+") and
+            (tabuleiro.tabuleiro[6] == " " or tabuleiro.tabuleiro[6] == "+") and
+            (tabuleiro.tabuleiro[8] == " " or tabuleiro.tabuleiro[8] == "+") and
+            (tabuleiro.tabuleiro[12] == " " or tabuleiro.tabuleiro[12] == "+") and
+            (tabuleiro.tabuleiro[16] == " " or tabuleiro.tabuleiro[16] == "+") and
+            (tabuleiro.tabuleiro[18] == " " or tabuleiro.tabuleiro[18] == "+") and
+            (tabuleiro.tabuleiro[20] == " " or tabuleiro.tabuleiro[20] == "+") and
+            (tabuleiro.tabuleiro[24] == " " or tabuleiro.tabuleiro[24] == "+") 
             ):
             reservaPosicao(0 ,1)
             reservaPosicao(2 ,1)
@@ -200,14 +198,14 @@ def pecasReserva(tabuleiro):
         for i in range(24):
             if( (i >= 0 and i<=2) or (i >= 5 and i<=7) or (i>=10 and i<=12)):
                 if(
-                        (tabuleiroHeuristica[i] == " " or tabuleiroHeuristica[i] == "O") and
-                        (tabuleiroHeuristica[i+1] == " " or tabuleiroHeuristica[i+1] == "O") and
-                        (tabuleiroHeuristica[i+2] == " " or tabuleiroHeuristica[i+2] == "O") and
-                        (tabuleiroHeuristica[i+5] == " " or tabuleiroHeuristica[i+5] == "O") and
-                        (tabuleiroHeuristica[i+7] == " " or tabuleiroHeuristica[i+7] == "O") and
-                        (tabuleiroHeuristica[i+10] == " " or tabuleiroHeuristica[i+10] == "O") and
-                        (tabuleiroHeuristica[i+11] == " " or tabuleiroHeuristica[i+11] == "O") and
-                        (tabuleiroHeuristica[i+12] == " " or tabuleiroHeuristica[i+12] == "O") 
+                        (tabuleiro.tabuleiro[i] == " " or tabuleiro.tabuleiro[i] == "O") and
+                        (tabuleiro.tabuleiro[i+1] == " " or tabuleiro.tabuleiro[i+1] == "O") and
+                        (tabuleiro.tabuleiro[i+2] == " " or tabuleiro.tabuleiro[i+2] == "O") and
+                        (tabuleiro.tabuleiro[i+5] == " " or tabuleiro.tabuleiro[i+5] == "O") and
+                        (tabuleiro.tabuleiro[i+7] == " " or tabuleiro.tabuleiro[i+7] == "O") and
+                        (tabuleiro.tabuleiro[i+10] == " " or tabuleiro.tabuleiro[i+10] == "O") and
+                        (tabuleiro.tabuleiro[i+11] == " " or tabuleiro.tabuleiro[i+11] == "O") and
+                        (tabuleiro.tabuleiro[i+12] == " " or tabuleiro.tabuleiro[i+12] == "O") 
                 ):
                     reservaPosicao(i, 0)
                     reservaPosicao(i+1, 0)
@@ -224,11 +222,11 @@ def pecasReserva(tabuleiro):
         for i in range(24):
             if((i >= 0 and i<=2) or (i >= 5 and i<=7) or (i>=10 and i<=12)):
                 if(
-                    (tabuleiroHeuristica[i] == " " or tabuleiroHeuristica[i] == "x") and
-                    (tabuleiroHeuristica[i+2] == " " or tabuleiroHeuristica[i+2] == "x") and
-                    (tabuleiroHeuristica[i+6] == " " or tabuleiroHeuristica[i+6] == "x") and
-                    (tabuleiroHeuristica[i+10] == " " or tabuleiroHeuristica[i+10] == "x") and
-                    (tabuleiroHeuristica[i+12] == " " or tabuleiroHeuristica[i+12] == "x") 
+                    (tabuleiro.tabuleiro[i] == " " or tabuleiro.tabuleiro[i] == "x") and
+                    (tabuleiro.tabuleiro[i+2] == " " or tabuleiro.tabuleiro[i+2] == "x") and
+                    (tabuleiro.tabuleiro[i+6] == " " or tabuleiro.tabuleiro[i+6] == "x") and
+                    (tabuleiro.tabuleiro[i+10] == " " or tabuleiro.tabuleiro[i+10] == "x") and
+                    (tabuleiro.tabuleiro[i+12] == " " or tabuleiro.tabuleiro[i+12] == "x") 
                 ):
                     reservaPosicao(i, 2)
                     reservaPosicao(i+2, 2)
@@ -242,11 +240,11 @@ def pecasReserva(tabuleiro):
         for i in range(24):
             if((i>=1 and i<=3) or (i>=6 and i<=8) or (i>= 11 and i<=13)):
                 if(
-                    (tabuleiroHeuristica[i] == " " or tabuleiroHeuristica[i] == "+") and
-                    (tabuleiroHeuristica[i+4] == " " or tabuleiroHeuristica[i+4] == "+") and
-                    (tabuleiroHeuristica[i+5] == " " or tabuleiroHeuristica[i+5] == "+") and
-                    (tabuleiroHeuristica[i+6] == " " or tabuleiroHeuristica[i+6] == "+") and
-                    (tabuleiroHeuristica[i+10] == " " or tabuleiroHeuristica[i+10] == "+")
+                    (tabuleiro.tabuleiro[i] == " " or tabuleiro.tabuleiro[i] == "+") and
+                    (tabuleiro.tabuleiro[i+4] == " " or tabuleiro.tabuleiro[i+4] == "+") and
+                    (tabuleiro.tabuleiro[i+5] == " " or tabuleiro.tabuleiro[i+5] == "+") and
+                    (tabuleiro.tabuleiro[i+6] == " " or tabuleiro.tabuleiro[i+6] == "+") and
+                    (tabuleiro.tabuleiro[i+10] == " " or tabuleiro.tabuleiro[i+10] == "+")
                 ):   
                     reservaPosicao(i,1)
                     reservaPosicao(i+4,1)
@@ -260,10 +258,10 @@ def pecasReserva(tabuleiro):
         for i in range(24):
             if((i>=0 and i<=3) or (i>=5 and i<=8) or (i>= 10 and i<=13) or (i<=15 and i<= 18)):
                 if(
-                    (tabuleiroHeuristica[i] == " " or tabuleiroHeuristica[i] == "O") and
-                    (tabuleiroHeuristica[i+1] == " " or tabuleiroHeuristica[i+1] == "O") and
-                    (tabuleiroHeuristica[i+5] == " " or tabuleiroHeuristica[i+5] == "O") and
-                    (tabuleiroHeuristica[i+6] == " " or tabuleiroHeuristica[i+6] == "O") 
+                    (tabuleiro.tabuleiro[i] == " " or tabuleiro.tabuleiro[i] == "O") and
+                    (tabuleiro.tabuleiro[i+1] == " " or tabuleiro.tabuleiro[i+1] == "O") and
+                    (tabuleiro.tabuleiro[i+5] == " " or tabuleiro.tabuleiro[i+5] == "O") and
+                    (tabuleiro.tabuleiro[i+6] == " " or tabuleiro.tabuleiro[i+6] == "O") 
                 ):
                     reservaPosicao(i,0)
                     reservaPosicao(i+1,0)
@@ -276,13 +274,13 @@ def pecasReserva(tabuleiro):
         for i in range(24):
             if((i>=0 and i<=2) or (i>=5 and i<=7) or (i>=10 and i<=12) or (i>=15 and i<=17) or (i>=20 and i<=22)):
                 if(
-                    (tabuleiroHeuristica[i] == " " or tabuleiroHeuristica[i] == "-") and
-                    (tabuleiroHeuristica[i+1] == " " or tabuleiroHeuristica[i+1] == "-")  and
-                    (tabuleiroHeuristica[i+2] == " " or tabuleiroHeuristica[i+2] == "-") 
+                    (tabuleiro.tabuleiro[i] == " " or tabuleiro.tabuleiro[i] == "-") and
+                    (tabuleiro.tabuleiro[i+1] == " " or tabuleiro.tabuleiro[i+1] == "-")  and
+                    (tabuleiro.tabuleiro[i+2] == " " or tabuleiro.tabuleiro[i+2] == "-") 
                     ):
-                    reservaPosicao(i)
-                    reservaPosicao(i+1)
-                    reservaPosicao(i+2)
+                    reservaPosicao(i, 3)
+                    reservaPosicao(i+1, 3)
+                    reservaPosicao(i+2, 3)
                     print("Figura de 3 com a peça Menos.")
                     pecaMenos -= 3
                     break
@@ -290,40 +288,84 @@ def pecasReserva(tabuleiro):
         for i in range(24):
             if((i>=0 and i<=3) or (i>=5 and i<=8) or (i>=10 and i<=13) or (i>=15 and i<=18) or (i>=20 and i<=23)):
                 if(
-                    (tabuleiroHeuristica[i] == " " or tabuleiroHeuristica[i] == "-") and
-                    (tabuleiroHeuristica[i+1] == " " or tabuleiroHeuristica[i+1] == "-") 
+                    (tabuleiro.tabuleiro[i] == " " or tabuleiro.tabuleiro[i] == "-") and
+                    (tabuleiro.tabuleiro[i+1] == " " or tabuleiro.tabuleiro[i+1] == "-") 
                     ):
-                    reservaPosicao(i)
-                    reservaPosicao(i+1)
+                    reservaPosicao(i, 3)
+                    reservaPosicao(i+1, 3)
                     print("Figura de 2 com a peça Menos.")
                     pecaMenos -= 2
                     break
     
-    print(tabuleiroHeuristica)
-
 def heuristica_pecaGrande(tabuleiro):
+  global por_inicio_da_heuristica
+  
+  if tabuleiroHeuristica == [" "] * 25:
     getNumeroPecas(tabuleiro)
     pecasReserva(tabuleiro)
 
-    return 0
+  # Determinar onde colocar a proxima peça
+  # Determinar porque reserva procurar
+  peca = tabuleiro.fila[0]
+
+  caracteres = {"-": "3", "+": "1", "x": "2", "O": "0"}
+  carater_reserva = caracteres.get(peca, None)
+
+  if por_inicio_da_heuristica:
+    indices_lista = range(0, 25, 1)
+  else:
+    indices_lista = range(24, -1, -1)
+
+  # retornar o indice da posição
+  for i in indices_lista:
+    pos1 = int(i)%5
+    pos2 = int(i)/5
+    if tabuleiroHeuristica[i] == carater_reserva and tabuleiro.posicaoValida(int(pos2),int(pos1)):
+      tabuleiroHeuristica[i] = " "
+      print("Peça Sitio encontrado" + str(i))
+
+      # Virar se é para por no inicio ou fim da heuristica
+      por_inicio_da_heuristica = not por_inicio_da_heuristica
+      return i
+
+  for i in range(25):
+    pos1 = int(i)%5
+    pos2 = int(i)/5
+    if tabuleiro.posicaoValida(int(pos2),int(pos1)) and tabuleiroHeuristica[i] == " ":
+      print("Sitio vazio: " + str(i))
+      return i
+
+  # retornar -1 em caso do tabuleiro estar cheio
+  n = 0 / 0;
+  return -1
 
 n = 0;
 tabuleiro.geraFila()
+# tabuleiro.fila = 10 * ["x"]
 
 while(1):
     print("Pontos: ", tabuleiro.pontos)
     tabuleiro.print()
-    heuristica_pecaGrande(tabuleiro)
+
+    if (len(tabuleiro.fila) == 0):
+      break
+    
+    # pos = heristica_gulosa(tabuleiro)
+    pos = heuristica_pecaGrande(tabuleiro)
+    print(tabuleiroHeuristica)
+
     user_input = input();
-    pos = heristica_gulosa(tabuleiro)
+
     pos1 = int(pos)%5
     pos2 = int(pos)/5
+
     while (False == tabuleiro.posicaoValida(int(pos2),int(pos1))):
-        # pos = random.randint(0,24)
-        pos = heristica_gulosa(tabuleiro)
-        user_input = input();
-        pos1 = int(pos)%5
-        pos2 = int(pos)/5
+      # pos = random.randint(0,24)
+      # pos = heristica_gulosa(tabuleiro)
+      pos = heuristica_pecaGrande(tabuleiro)
+      user_input = input();
+      pos1 = int(pos)%5
+      pos2 = int(pos)/5
 
     tabuleiro.insereSimbolo(int(pos2),int(pos1))
     print(pos," x:",int(pos2), " y:", int(pos1))
