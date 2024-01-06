@@ -350,8 +350,8 @@ while(1):
     if (len(tabuleiro.fila) == 0):
       break
     
-    pos = heristica_gulosa(tabuleiro)
-    # pos = heuristic_pecaGrande(tabuleiro)
+    # pos = heristica_gulosa(tabuleiro)
+    pos = heuristic_pecaGrande(tabuleiro)
     print(tabuleiroHeuristica)
 
     user_input = input();
@@ -361,9 +361,8 @@ while(1):
 
     while (False == tabuleiro.posicaoValida(int(pos1),int(pos2))):
       # pos = random.randint(0,24)
-      print("Posiçao não valida:",pos)
-      pos = heristica_gulosa(tabuleiro)
-      #pos = heuristica_pecaGrande(tabuleiro)
+      # pos = heristica_gulosa(tabuleiro)
+      pos = heuristica_pecaGrande(tabuleiro)
       user_input = input();
       pos1 = int(pos)%5 #x
       pos2 = int(pos)/5 #y
