@@ -320,18 +320,18 @@ def heuristica_pecaGrande(tabuleiro):
   for i in indices_lista:
     pos1 = int(i)%5
     pos2 = int(i)/5
-    if tabuleiroHeuristica[i] == carater_reserva and tabuleiro.posicaoValida(int(pos2),int(pos1)):
+    if tabuleiroHeuristica[i] == carater_reserva and tabuleiro.posicaoValida(int(pos1),int(pos2)):
       tabuleiroHeuristica[i] = " "
-      print("Peça Sitio encontrado" + str(i))
+      print("Peça Sitio encontrado:" + str(i))
 
       # Virar se é para por no inicio ou fim da heuristica
       por_inicio_da_heuristica = not por_inicio_da_heuristica
       return i
 
   for i in range(25):
-    pos1 = int(i)%5
-    pos2 = int(i)/5
-    if tabuleiro.posicaoValida(int(pos2),int(pos1)) and tabuleiroHeuristica[i] == " ":
+    pos1 = int(i)%5 #x
+    pos2 = int(i)/5 #y
+    if tabuleiro.posicaoValida(int(pos1),int(pos2)) and tabuleiroHeuristica[i] == " ":
       print("Sitio vazio: " + str(i))
       return i
 
@@ -356,19 +356,19 @@ while(1):
 
     user_input = input();
 
-    pos1 = int(pos)%5
-    pos2 = int(pos)/5
+    pos1 = int(pos)%5 #x
+    pos2 = int(pos)/5 #y
 
-    while (False == tabuleiro.posicaoValida(int(pos2),int(pos1))):
+    while (False == tabuleiro.posicaoValida(int(pos1),int(pos2))):
       # pos = random.randint(0,24)
       # pos = heristica_gulosa(tabuleiro)
       pos = heuristica_pecaGrande(tabuleiro)
       user_input = input();
-      pos1 = int(pos)%5
-      pos2 = int(pos)/5
+      pos1 = int(pos)%5 #x
+      pos2 = int(pos)/5 #y
 
-    tabuleiro.insereSimbolo(int(pos2),int(pos1))
-    print(pos," x:",int(pos2), " y:", int(pos1))
+    tabuleiro.insereSimbolo(int(pos1), int(pos2))
+    print(pos," x:",int(pos1), " y:", int(pos2))
    
     tabuleiro.atualizaPontuacao()
     n += 1
