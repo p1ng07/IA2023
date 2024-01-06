@@ -351,7 +351,7 @@ while(1):
       break
     
     # pos = heristica_gulosa(tabuleiro)
-    pos = heuristic_pecaGrande(tabuleiro)
+    pos = heuristica_pecaGrande(tabuleiro)
     print(tabuleiroHeuristica)
 
     user_input = input();
