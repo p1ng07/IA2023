@@ -19,39 +19,39 @@ def heristica_gulosa(tabuleiro):
     if(tabuleiro.fila[0] == "x"):
         if(tabuleiro.posicaoValida(0,0)):
             return 0
-        elif(tabuleiro.posicaoValida(0,2)):
+        elif(tabuleiro.posicaoValida(2,0)):
             return 2
         elif(tabuleiro.posicaoValida(1,1)):
             return 6
-        elif(tabuleiro.posicaoValida(2,0)):
+        elif(tabuleiro.posicaoValida(0,2)):
             return 10
         elif(tabuleiro.posicaoValida(2,2)):
             return 12
         
     if(tabuleiro.fila[0] == "+"):
-        if(tabuleiro.posicaoValida(2,1)):
+        if(tabuleiro.posicaoValida(1,2)):
             return 11
-        elif(tabuleiro.posicaoValida(3,0)):
+        elif(tabuleiro.posicaoValida(0,3)):
             return 15
-        elif(tabuleiro.posicaoValida(3,1)):
+        elif(tabuleiro.posicaoValida(1,3)):
             return 16
-        elif(tabuleiro.posicaoValida(3,2)):
+        elif(tabuleiro.posicaoValida(2,3)):
             return 17
-        elif(tabuleiro.posicaoValida(4,1)):
+        elif(tabuleiro.posicaoValida(1,4)):
             return 21
         
     if(tabuleiro.fila[0] == "O"):
-        if(tabuleiro.posicaoValida(0,3)):
+        if(tabuleiro.posicaoValida(3,0)):
             return 3
-        elif(tabuleiro.posicaoValida(0,4)):
+        elif(tabuleiro.posicaoValida(4,0)):
             return 4
-        elif(tabuleiro.posicaoValida(1,3)):
+        elif(tabuleiro.posicaoValida(3,1)):
             return 8
-        elif(tabuleiro.posicaoValida(1,4)):
+        elif(tabuleiro.posicaoValida(4,1)):
             return 9
 
     if(tabuleiro.fila[0] == "-"):
-        if(tabuleiro.posicaoValida(4,3)):
+        if(tabuleiro.posicaoValida(3,4)):
             return 23
         elif(tabuleiro.posicaoValida(4,4)):
             return 24
@@ -350,8 +350,8 @@ while(1):
     if (len(tabuleiro.fila) == 0):
       break
     
-    # pos = heristica_gulosa(tabuleiro)
-    pos = heuristica_pecaGrande(tabuleiro)
+    pos = heristica_gulosa(tabuleiro)
+    # pos = heuristic_pecaGrande(tabuleiro)
     print(tabuleiroHeuristica)
 
     user_input = input();
@@ -361,8 +361,9 @@ while(1):
 
     while (False == tabuleiro.posicaoValida(int(pos1),int(pos2))):
       # pos = random.randint(0,24)
-      # pos = heristica_gulosa(tabuleiro)
-      pos = heuristica_pecaGrande(tabuleiro)
+      print("Posiçao não valida:",pos)
+      pos = heristica_gulosa(tabuleiro)
+      #pos = heuristica_pecaGrande(tabuleiro)
       user_input = input();
       pos1 = int(pos)%5 #x
       pos2 = int(pos)/5 #y
