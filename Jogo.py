@@ -20,16 +20,17 @@ class Tabuleiro:
 
   def print(self):
     print("+---+---+---+---+---+")
-    print("|",self.item(0,0),"|",self.item(0,1),"|",self.item(0,2),"|",self.item(0,3),"|",self.item(0,4),"|")
+    print("|",self.item(0,0),"|",self.item(1,0),"|",self.item(2,0),"|",self.item(3,0),"|",self.item(4,0),"|")
     print("+---+---+---+---+---+")
-    print("|",self.item(1,0),"|",self.item(1,1),"|",self.item(1,2),"|",self.item(1,3),"|",self.item(1,4),"|")
+    print("|",self.item(0,1),"|",self.item(1,1),"|",self.item(2,1),"|",self.item(3,1),"|",self.item(4,1),"|")
     print("+---+---+---+---+---+")
-    print("|",self.item(2,0),"|",self.item(2,1),"|",self.item(2,2),"|",self.item(2,3),"|",self.item(2,4),"|")
+    print("|",self.item(0,2),"|",self.item(1,2),"|",self.item(2,2),"|",self.item(3,2),"|",self.item(4,2),"|")
     print("+---+---+---+---+---+")
-    print("|",self.item(3,0),"|",self.item(3,1),"|",self.item(3,2),"|",self.item(3,3),"|",self.item(3,4),"|")
+    print("|",self.item(0,3),"|",self.item(1,3),"|",self.item(2,3),"|",self.item(3,3),"|",self.item(4,3),"|")
     print("+---+---+---+---+---+")
-    print("|",self.item(4,0),"|",self.item(4,1),"|",self.item(4,2),"|",self.item(4,3),"|",self.item(4,4),"|")
+    print("|",self.item(0,4),"|",self.item(1,4),"|",self.item(2,4),"|",self.item(3,4),"|",self.item(4,4),"|")
     print("+---+---+---+---+---+")
+    print(self.tabuleiro)
     print("Next:", self.fila[0] if len(self.fila) > 0 else " ", "\nFila : ",self.fila)
 
   def itemset(self, x,y, piece: str):
