@@ -37,17 +37,17 @@ class Tabuleiro:
     self.tabuleiro[x + y*5] = piece
 
   def verificaMenos(self,x, y):
-      if(self.item(x,y) == "-" and y < 4):
-          if(self.item(x, y+1) == "-"):
-              if(y+2 <= 4 and self.item(x,y+2) == "-"):
+      if(self.item(x,y) == "-" and x < 4):
+          if(self.item(x+1, y) == "-"):
+              if(x+2 <= 4 and self.item(x+2,y) == "-"):
                 self.pontos += 8 #pow(2, 2) 
                 self.itemset(x,y," ")
-                self.itemset(x,y+1," ")
-                self.itemset(x,y+2," ")
+                self.itemset(x+1,y," ")
+                self.itemset(x+2,y," ")
               else:
                 self.pontos += 4 #pow(2, 3) 
                 self.itemset(x,y," ")
-                self.itemset(x,y+1," ")
+                self.itemset(x+1,y," ")
               
   def verificaBola(self,x,y):
       # Verificar Bola 5x5
@@ -98,8 +98,6 @@ class Tabuleiro:
                 self.item(x,y+3) == "O" and 
                 self.item(x+3,y+1) == "O" and 
                 self.item(x+3,y+2) == "O" and 
-                self.item(x+3,y+3) == "O" and 
-                self.item(x,y+3) == "O" and 
                 self.item(x+1,y+3) == "O" and 
                 self.item(x+2,y+3) == "O" and 
                 self.item(x+3,y+3) == "O"): 
@@ -117,10 +115,8 @@ class Tabuleiro:
                   self.itemset(x+3,y+1, " ")  
                   self.itemset(x+3,y+2, " ")  
                   self.itemset(x+3,y+3, " ")  
-                  self.itemset(x,y+3, " ")  
                   self.itemset(x+1,y+3, " ")  
                   self.itemset(x+2,y+3, " ")  
-                  self.itemset(x+3,y+3, " ")  
 
       # Bola 3x3
       if(self.item(x,y) == "O" and x < 3 and y < 3):
