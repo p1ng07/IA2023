@@ -229,8 +229,8 @@ class Tabuleiro:
 
   def atualizaPontuacao(self):
     self.verificaMaisGrande()
-    for i in range(5):
-        for j in range(5):
+    for j in range(5):
+        for i in range(5):
           self.verificaMenos(i,j)
           self.verificaX(i,j)
           self.verificaBola(i,j)
