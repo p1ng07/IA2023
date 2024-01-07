@@ -318,9 +318,9 @@ def heuristica_fila9(tabuleiro):
 
   # retornar o indice da posição
   for i in indices_lista:
-    pos1 = int(i)%5
-    pos2 = int(i)/5
-    if tabuleiroHeuristica[i] == carater_reserva and tabuleiro.posicaoValida(int(pos2),int(pos1)):
+    pos1 = int(i)%5 #x
+    pos2 = int(i)/5 #y
+    if tabuleiroHeuristica[i] == carater_reserva and tabuleiro.posicaoValida(int(pos1),int(pos2)):
       tabuleiroHeuristica[i] = " "
       print("Peça Sitio encontrado" + str(i))
 
@@ -329,9 +329,9 @@ def heuristica_fila9(tabuleiro):
       return i
 
   for i in range(25):
-    pos1 = int(i)%5
-    pos2 = int(i)/5
-    if tabuleiro.posicaoValida(int(pos2),int(pos1)) and tabuleiroHeuristica[i] == " ":
+    pos1 = int(i)%5 #x
+    pos2 = int(i)/5 #y
+    if tabuleiro.posicaoValida(int(pos1),int(pos2)) and tabuleiroHeuristica[i] == " ":
       print("Sitio vazio: " + str(i))
       return i
 
