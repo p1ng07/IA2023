@@ -19,39 +19,39 @@ def heristica_gulosa(tabuleiro):
     if(tabuleiro.fila[0] == "x"):
         if(tabuleiro.posicaoValida(0,0)):
             return 0
-        elif(tabuleiro.posicaoValida(0,2)):
+        elif(tabuleiro.posicaoValida(2,0)):
             return 2
         elif(tabuleiro.posicaoValida(1,1)):
             return 6
-        elif(tabuleiro.posicaoValida(2,0)):
+        elif(tabuleiro.posicaoValida(0,2)):
             return 10
         elif(tabuleiro.posicaoValida(2,2)):
             return 12
         
     if(tabuleiro.fila[0] == "+"):
-        if(tabuleiro.posicaoValida(2,1)):
+        if(tabuleiro.posicaoValida(1,2)):
             return 11
-        elif(tabuleiro.posicaoValida(3,0)):
+        elif(tabuleiro.posicaoValida(0,3)):
             return 15
-        elif(tabuleiro.posicaoValida(3,1)):
+        elif(tabuleiro.posicaoValida(1,3)):
             return 16
-        elif(tabuleiro.posicaoValida(3,2)):
+        elif(tabuleiro.posicaoValida(2,3)):
             return 17
-        elif(tabuleiro.posicaoValida(4,1)):
+        elif(tabuleiro.posicaoValida(1,4)):
             return 21
         
     if(tabuleiro.fila[0] == "O"):
-        if(tabuleiro.posicaoValida(0,3)):
+        if(tabuleiro.posicaoValida(3,0)):
             return 3
-        elif(tabuleiro.posicaoValida(0,4)):
+        elif(tabuleiro.posicaoValida(4,0)):
             return 4
-        elif(tabuleiro.posicaoValida(1,3)):
+        elif(tabuleiro.posicaoValida(3,1)):
             return 8
-        elif(tabuleiro.posicaoValida(1,4)):
+        elif(tabuleiro.posicaoValida(4,1)):
             return 9
 
     if(tabuleiro.fila[0] == "-"):
-        if(tabuleiro.posicaoValida(4,3)):
+        if(tabuleiro.posicaoValida(3,4)):
             return 23
         elif(tabuleiro.posicaoValida(4,4)):
             return 24
@@ -318,9 +318,9 @@ def heuristica_fila9(tabuleiro):
 
   # retornar o indice da posição
   for i in indices_lista:
-    pos1 = int(i)%5
-    pos2 = int(i)/5
-    if tabuleiroHeuristica[i] == carater_reserva and tabuleiro.posicaoValida(int(pos2),int(pos1)):
+    pos1 = int(i)%5 #x
+    pos2 = int(i)/5 #y
+    if tabuleiroHeuristica[i] == carater_reserva and tabuleiro.posicaoValida(int(pos1),int(pos2)):
       tabuleiroHeuristica[i] = " "
       print("Peça Sitio encontrado" + str(i))
 
@@ -329,9 +329,9 @@ def heuristica_fila9(tabuleiro):
       return i
 
   for i in range(25):
-    pos1 = int(i)%5
-    pos2 = int(i)/5
-    if tabuleiro.posicaoValida(int(pos2),int(pos1)) and tabuleiroHeuristica[i] == " ":
+    pos1 = int(i)%5 #x
+    pos2 = int(i)/5 #y
+    if tabuleiro.posicaoValida(int(pos1),int(pos2)) and tabuleiroHeuristica[i] == " ":
       print("Sitio vazio: " + str(i))
       return i
 
@@ -362,18 +362,18 @@ def heuristica_pecaGrande(tabuleiro):
   for i in indices_lista:
     pos1 = int(i)%5
     pos2 = int(i)/5
-    if tabuleiroHeuristica[i] == carater_reserva and tabuleiro.posicaoValida(int(pos2),int(pos1)):
+    if tabuleiroHeuristica[i] == carater_reserva and tabuleiro.posicaoValida(int(pos1),int(pos2)):
       tabuleiroHeuristica[i] = " "
-      print("Peça Sitio encontrado" + str(i))
+      print("Peça Sitio encontrado:" + str(i))
 
       # Virar se é para por no inicio ou fim da heuristica
       por_inicio_da_heuristica = not por_inicio_da_heuristica
       return i
 
   for i in range(25):
-    pos1 = int(i)%5
-    pos2 = int(i)/5
-    if tabuleiro.posicaoValida(int(pos2),int(pos1)) and tabuleiroHeuristica[i] == " ":
+    pos1 = int(i)%5 #x
+    pos2 = int(i)/5 #y
+    if tabuleiro.posicaoValida(int(pos1),int(pos2)) and tabuleiroHeuristica[i] == " ":
       print("Sitio vazio: " + str(i))
       return i
 
@@ -399,20 +399,20 @@ while(1):
 
     user_input = input();
 
-    pos1 = int(pos)%5
-    pos2 = int(pos)/5
+    pos1 = int(pos)%5 #x
+    pos2 = int(pos)/5 #y
 
-    while (False == tabuleiro.posicaoValida(int(pos2),int(pos1))):
+    while (False == tabuleiro.posicaoValida(int(pos1),int(pos2))):
       # pos = random.randint(0,24)
       # pos = heristica_gulosa(tabuleiro)
       # pos = heuristica_pecaGrande(tabuleiro)
       pos = heuristica_fila9(tabuleiro)
       user_input = input();
-      pos1 = int(pos)%5
-      pos2 = int(pos)/5
+      pos1 = int(pos)%5 #x
+      pos2 = int(pos)/5 #y
 
-    tabuleiro.insereSimbolo(int(pos2),int(pos1))
-    print(pos," x:",int(pos2), " y:", int(pos1))
+    tabuleiro.insereSimbolo(int(pos1), int(pos2))
+    print(pos," x:",int(pos1), " y:", int(pos2))
    
     tabuleiro.atualizaPontuacao()
     n += 1
