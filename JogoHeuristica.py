@@ -57,13 +57,13 @@ def heristica_gulosa(tabuleiro):
             return 24
         
     return 0
-def getNumeroPecas(tabuleiro):
+def getNumeroPecas(fila):
     global pecaBola, pecaMais, pecaMenos, pecaX
     pecaX = 0
     pecaMenos = 0
     pecaMais = 0
     pecaBola = 0
-    for peca in tabuleiro.getFila():
+    for peca in fila:
         if(peca == "x"):
             pecaX += 1
         elif(peca == "-"):
@@ -297,11 +297,53 @@ def pecasReserva(tabuleiro):
                     pecaMenos -= 2
                     break
     
+def heuristica_fila9(tabuleiro):
+  global por_inicio_da_heuristica
+  
+  if tabuleiroHeuristica == [" "] * 25:
+    getNumeroPecas(tabuleiro.getFila()[0:9])
+    pecasReserva(tabuleiro)
+
+  # Determinar onde colocar a proxima peça
+  # Determinar porque reserva procurar
+  peca = tabuleiro.fila[0]
+
+  caracteres = {"-": "3", "+": "1", "x": "2", "O": "0"}
+  carater_reserva = caracteres.get(peca, None)
+
+  if por_inicio_da_heuristica:
+    indices_lista = range(0, 25, 1)
+  else:
+    indices_lista = range(24, -1, -1)
+
+  # retornar o indice da posição
+  for i in indices_lista:
+    pos1 = int(i)%5
+    pos2 = int(i)/5
+    if tabuleiroHeuristica[i] == carater_reserva and tabuleiro.posicaoValida(int(pos2),int(pos1)):
+      tabuleiroHeuristica[i] = " "
+      print("Peça Sitio encontrado" + str(i))
+
+      # Virar se é para por no inicio ou fim da heuristica
+      por_inicio_da_heuristica = not por_inicio_da_heuristica
+      return i
+
+  for i in range(25):
+    pos1 = int(i)%5
+    pos2 = int(i)/5
+    if tabuleiro.posicaoValida(int(pos2),int(pos1)) and tabuleiroHeuristica[i] == " ":
+      print("Sitio vazio: " + str(i))
+      return i
+
+  # retornar -1 em caso do tabuleiro estar cheio
+  n = 0 / 0;
+  return -1
+
 def heuristica_pecaGrande(tabuleiro):
   global por_inicio_da_heuristica
   
   if tabuleiroHeuristica == [" "] * 25:
-    getNumeroPecas(tabuleiro)
+    getNumeroPecas(tabuleiro.getFila())
     pecasReserva(tabuleiro)
 
   # Determinar onde colocar a proxima peça
@@ -351,7 +393,8 @@ while(1):
       break
     
     # pos = heristica_gulosa(tabuleiro)
-    pos = heuristica_pecaGrande(tabuleiro)
+    # pos = heuristica_pecaGrande(tabuleiro)
+    pos = heuristica_fila9(tabuleiro)
     print(tabuleiroHeuristica)
 
     user_input = input();
@@ -362,7 +405,8 @@ while(1):
     while (False == tabuleiro.posicaoValida(int(pos1),int(pos2))):
       # pos = random.randint(0,24)
       # pos = heristica_gulosa(tabuleiro)
-      pos = heuristica_pecaGrande(tabuleiro)
+      # pos = heuristica_pecaGrande(tabuleiro)
+      pos = heuristica_fila9(tabuleiro)
       user_input = input();
       pos1 = int(pos)%5 #x
       pos2 = int(pos)/5 #y
