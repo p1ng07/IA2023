@@ -109,6 +109,8 @@ def inicializa_robo():
 n = 0;
 
 inicializa_robo()
+ev3.speaker.say("Start")
+
 while not (Button.LEFT in ev3.buttons.pressed()):
 
     if Button.CENTER in ev3.buttons.pressed():
@@ -116,7 +118,7 @@ while not (Button.LEFT in ev3.buttons.pressed()):
         tabuleiro.insereNaFila(traduz_cor_para_peca(color))
         print(tabuleiro.getFila())
         print("Peça ", traduz_cor_para_peca(color), " adicionada.")
-        sleep(0.5)
+        sleep(1)
 
 
 print("Pontos: ", tabuleiro.pontos)
@@ -133,14 +135,18 @@ while(tabuleiro.getFila() != [] ):
     posicao_inicial()
     subir_elevador()
     tabuleiro.print()
-    pos = heristica_gulosa(tabuleiro)
+    # pos = heuristica_fila9(tabuleiro)
+    pos = heuristica_pecaGrande(tabuleiro)
+    # pos = heristica_gulosa(tabuleiro)
     pos1 = int(pos)%5 #x
     pos2 = int(pos)/5 #y
     while (False == tabuleiro.posicaoValida(int(pos1),int(pos2))):
         # pos = random.randint(0,24)
         #user_input = input();
-        
-        pos = heristica_gulosa(tabuleiro)
+
+        # pos = heuristica_fila9(tabuleiro)
+        pos = heuristica_pecaGrande(tabuleiro)
+        # pos = heristica_gulosa(tabuleiro)
         pos1 = int(pos)%5 #x
         pos2 = int(pos)/5 #y
 
