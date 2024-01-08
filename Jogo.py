@@ -30,7 +30,6 @@ class Tabuleiro:
     print("+---+---+---+---+---+")
     print("|",self.item(0,4),"|",self.item(1,4),"|",self.item(2,4),"|",self.item(3,4),"|",self.item(4,4),"|")
     print("+---+---+---+---+---+")
-    print(self.tabuleiro)
     print("Next:", self.fila[0] if len(self.fila) > 0 else " ", "\nFila : ",self.fila)
 
   def itemset(self, x,y, piece: str):

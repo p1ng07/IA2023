@@ -2,10 +2,12 @@
 import random
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import Motor, TouchSensor, ColorSensor
-from pybricks.parameters import Port, Stop, Direction, Color
+from pybricks.parameters import Port, Stop, Direction, Color, Button
 from pybricks.tools import wait
+from time import sleep
 import time
 from Jogo import Tabuleiro
+from JogoHeuristica import heuristica_pecaGrande, heristica_gulosa, heuristica_fila9
 
 tabuleiro = Tabuleiro()
 
@@ -17,9 +19,11 @@ motor = Motor(Port.B)
 
 color_sensor = ColorSensor(Port.S4)
 
+temp_pontos = 0
+
 # Mapeamentos de cores para peças:
-# Blue = Traco
-# Red = Circulo
+# Blue = Bola
+# Red = Menos
 # Yellow = Sinal de mais
 # Green = Sinal de multiplicacao
 
@@ -48,7 +52,7 @@ def busca_peca():
     while color_is_valid(color) is False:
         color = color_sensor.color()
     print("Cor da peça: ",color)
-    tabuleiro.insereNaFila(traduz_cor_para_peca(color))
+    # tabuleiro.insereNaFila(traduz_cor_para_peca(color))
 
     motor.brake()
 
@@ -104,10 +108,22 @@ def inicializa_robo():
 
 n = 0;
 
+inicializa_robo()
+while not (Button.LEFT in ev3.buttons.pressed()):
 
-while(1):
-    print("Pontos: ", tabuleiro.pontos)
-    tabuleiro.print()
+    if Button.CENTER in ev3.buttons.pressed():
+        color = color_sensor.color()
+        tabuleiro.insereNaFila(traduz_cor_para_peca(color))
+        print(tabuleiro.getFila())
+        print("Peça ", traduz_cor_para_peca(color), " adicionada.")
+        sleep(0.5)
+
+
+print("Pontos: ", tabuleiro.pontos)
+tabuleiro.print()
+
+while(tabuleiro.getFila() != [] ):
+    temp_pontos = tabuleiro.pontos
     fechar_garra()
     inicializa_robo()
     busca_peca()
@@ -117,26 +133,30 @@ while(1):
     posicao_inicial()
     subir_elevador()
     tabuleiro.print()
-    user_input = input();
-    pos = int(user_input)
-    pos1 = int(pos)%5
-    pos2 = int(pos)/5
-    while (False == tabuleiro.posicaoValida(int(pos2),int(pos1))):
+    pos = heristica_gulosa(tabuleiro)
+    pos1 = int(pos)%5 #x
+    pos2 = int(pos)/5 #y
+    while (False == tabuleiro.posicaoValida(int(pos1),int(pos2))):
         # pos = random.randint(0,24)
-        user_input = input();
-        pos = int(user_input)
-        pos1 = int(pos)%5
-        pos2 = int(pos)/5
+        #user_input = input();
+        
+        pos = heristica_gulosa(tabuleiro)
+        pos1 = int(pos)%5 #x
+        pos2 = int(pos)/5 #y
 
-    tabuleiro.insereSimbolo(int(pos2),int(pos1))
-    print(pos," x:",int(pos2), " y:", int(pos1))
+    tabuleiro.insereSimbolo(int(pos1),int(pos2))
+    print(pos," x:",int(pos1), " y:", int(pos2))
     coloca_peca(pos)
     descer_elevador()
     abrir_garra() 
     tabuleiro.atualizaPontuacao()
     subir_elevador()
     volta_inicio(pos)
-    n += 1
+    print("Pontos: ", tabuleiro.pontos)
+    tabuleiro.print()
+    if(temp_pontos != tabuleiro.pontos):
+        ev3.speaker.beep()
+        while not (Button.CENTER in ev3.buttons.pressed()):
+            sleep(0.1)
 
-# while(1):
-#     print(color_sensor.color())
+
