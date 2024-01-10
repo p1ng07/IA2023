@@ -116,7 +116,9 @@ def pecasReserva(tabuleiro):
             reservaPosicao(24, 0)
             print("Figura de 16 com a peça Bola.")
             pecaBola -= 16
-    elif(pecaBola >= 12):
+            return
+      
+    if(pecaBola >= 12):
         for i in range(24):
             if(i == 0 or i == 1 or i == 5 or i == 6):
                 if(
@@ -147,8 +149,8 @@ def pecasReserva(tabuleiro):
                     reservaPosicao(i+18,0)
                     print("Figura de 12 com a peça Bola.")
                     pecaBola -= 12
-                    break
-    elif(pecaX >= 9):
+                    return
+    if(pecaX >= 9):
         if(
             (tabuleiro.tabuleiro[0] == " " or tabuleiro.tabuleiro[0] == "x") and
             (tabuleiro.tabuleiro[4] == " " or tabuleiro.tabuleiro[4] == "x") and
@@ -171,7 +173,8 @@ def pecasReserva(tabuleiro):
             reservaPosicao(24 ,2)
             print("Figura de 9 com a peça X.")
             pecaX -= 9
-    elif(pecaMais >= 9):
+            return
+    if(pecaMais >= 9):
         if(
             (tabuleiro.tabuleiro[0] == " " or tabuleiro.tabuleiro[0] == "+") and
             (tabuleiro.tabuleiro[4] == " " or tabuleiro.tabuleiro[4] == "+") and
@@ -194,7 +197,8 @@ def pecasReserva(tabuleiro):
             reservaPosicao(24 ,1)
             print("Figura de 9 com a peça Mais.")
             pecaMais -= 9
-    elif(pecaBola >= 8):
+            return
+    if(pecaBola >= 8):
         for i in range(24):
             if( (i >= 0 and i<=2) or (i >= 5 and i<=7) or (i>=10 and i<=12)):
                 if(
@@ -217,8 +221,8 @@ def pecasReserva(tabuleiro):
                     reservaPosicao(i+12, 0)
                     print("Figura de 8 com a peça Bola.")
                     pecaBola -= 8
-                    break
-    elif(pecaX >= 5):
+                    return
+    if(pecaX >= 5):
         for i in range(24):
             if((i >= 0 and i<=2) or (i >= 5 and i<=7) or (i>=10 and i<=12)):
                 if(
@@ -235,8 +239,8 @@ def pecasReserva(tabuleiro):
                     reservaPosicao(i+12, 2)
                     print("Figura de 5 com a peça X.")
                     pecaX -= 5
-                    break
-    elif(pecaMais >= 5):
+                    return
+    if(pecaMais >= 5):
         for i in range(24):
             if((i>=1 and i<=3) or (i>=6 and i<=8) or (i>= 11 and i<=13)):
                 if(
@@ -253,8 +257,8 @@ def pecasReserva(tabuleiro):
                     reservaPosicao(i+10,1)
                     print("Figura de 5 com a peça Mais.")
                     pecaMais -= 5
-                    break
-    elif(pecaBola >= 4):
+                    return
+    if(pecaBola >= 4):
         for i in range(24):
             if((i>=0 and i<=3) or (i>=5 and i<=8) or (i>= 10 and i<=13) or (i<=15 and i<= 18)):
                 if(
@@ -269,8 +273,8 @@ def pecasReserva(tabuleiro):
                     reservaPosicao(i+6,0)
                     print("Figura de 4 com a peça Bola.")
                     pecaBola -= 4
-                    break
-    elif(pecaMenos >= 3):
+                    return
+    if(pecaMenos >= 3):
         for i in range(24):
             if((i>=0 and i<=2) or (i>=5 and i<=7) or (i>=10 and i<=12) or (i>=15 and i<=17) or (i>=20 and i<=22)):
                 if(
@@ -283,8 +287,8 @@ def pecasReserva(tabuleiro):
                     reservaPosicao(i+2, 3)
                     print("Figura de 3 com a peça Menos.")
                     pecaMenos -= 3
-                    break
-    elif(pecaMenos >= 2):
+                    return
+    if(pecaMenos >= 2):
         for i in range(24):
             if((i>=0 and i<=3) or (i>=5 and i<=8) or (i>=10 and i<=13) or (i>=15 and i<=18) or (i>=20 and i<=23)):
                 if(
@@ -295,7 +299,7 @@ def pecasReserva(tabuleiro):
                     reservaPosicao(i+1, 3)
                     print("Figura de 2 com a peça Menos.")
                     pecaMenos -= 2
-                    break
+                    return
     
 def heuristica_fila9(tabuleiro):
   global por_inicio_da_heuristica
@@ -336,7 +340,6 @@ def heuristica_fila9(tabuleiro):
       return i
 
   # retornar -1 em caso do tabuleiro estar cheio
-  n = 0 / 0;
   return -1
 
 def heuristica_pecaGrande(tabuleiro):
