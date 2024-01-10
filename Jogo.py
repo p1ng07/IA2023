@@ -242,7 +242,7 @@ class Tabuleiro:
             self.fila.pop(0)
 
   def geraFila(self):
-    for x in range(20):
+    for x in range(25):
       ran = random.randint(0,3)
       if(ran == 0):
         self.fila.append("O")
@@ -252,20 +252,3 @@ class Tabuleiro:
         self.fila.append("+")
       else:
         self.fila.append("-")
-          
-
-# tabuleiro = Tabuleiro()
-
-# geraFila(tabuleiro.getFila())
-# while(1):
-#   print("\n\n\n\n\n\n")
-#   print("Pontuação: ",tabuleiro.pontos)
-#   tabuleiro.print()
-#   print("Escolha a posição:")
-#   user_input = input();
-#   if user_input != "" and user_input.isnumeric():
-#     n = int(user_input)
-#     pos1 = int(n)%5
-#     pos2 = int(n) / 5
-#     tabuleiro.insereSimbolo(int(pos2),int(pos1))
-#     tabuleiro.atualizaPontuacao()

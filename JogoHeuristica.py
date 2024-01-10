@@ -383,39 +383,3 @@ def heuristica_pecaGrande(tabuleiro):
   # retornar -1 em caso do tabuleiro estar cheio
   n = 0 / 0;
   return -1
-
-# n = 0;
-# tabuleiro.geraFila()
-# # tabuleiro.fila = 10 * ["x"]
-
-# while(1):
-#     print("Pontos: ", tabuleiro.pontos)
-#     tabuleiro.print()
-
-#     if (len(tabuleiro.fila) == 0):
-#       break
-    
-#     # pos = heristica_gulosa(tabuleiro)
-#     # pos = heuristica_pecaGrande(tabuleiro)
-#     pos = heuristica_fila9(tabuleiro)
-#     print(tabuleiroHeuristica)
-
-#     user_input = input();
-
-#     pos1 = int(pos)%5 #x
-#     pos2 = int(pos)/5 #y
-
-#     while (False == tabuleiro.posicaoValida(int(pos1),int(pos2))):
-#       # pos = random.randint(0,24)
-#       # pos = heristica_gulosa(tabuleiro)
-#       # pos = heuristica_pecaGrande(tabuleiro)
-#       pos = heuristica_fila9(tabuleiro)
-#       user_input = input();
-#       pos1 = int(pos)%5 #x
-#       pos2 = int(pos)/5 #y
-
-#     tabuleiro.insereSimbolo(int(pos1), int(pos2))
-#     print(pos," x:",int(pos1), " y:", int(pos2))
-   
-#     tabuleiro.atualizaPontuacao()
-#     n += 1

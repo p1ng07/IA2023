@@ -165,4 +165,5 @@ while(tabuleiro.getFila() != [] ):
         while not (Button.CENTER in ev3.buttons.pressed()):
             sleep(0.1)
 
-
+print("Pontos:", tabuleiro.pontos)
+tabuleiro.print()
