@@ -9,6 +9,8 @@ import time
 from Jogo import Tabuleiro
 from JogoHeuristica import heuristica_pecaGrande, heristica_gulosa, heuristica_fila9
 
+# corremos este ficheiro para fazer a simulação no robot
+
 tabuleiro = Tabuleiro()
 
 ev3 = EV3Brick()
@@ -111,8 +113,9 @@ n = 0;
 inicializa_robo()
 ev3.speaker.say("Start")
 
+# enquanto o botão esquerdo do robot não tiver sido premido, significa que ainda está no processo de leitura de peças para a fila
 while not (Button.LEFT in ev3.buttons.pressed()):
-
+    # lê a peça quando é premido o botão central no robot
     if Button.CENTER in ev3.buttons.pressed():
         color = color_sensor.color()
         tabuleiro.insereNaFila(traduz_cor_para_peca(color))
@@ -124,6 +127,7 @@ while not (Button.LEFT in ev3.buttons.pressed()):
 print("Pontos: ", tabuleiro.pontos)
 tabuleiro.print()
 
+# enquanto a fila não está vazia significa que ainda há peças a serem colocadas no tabuleiro 
 while(tabuleiro.getFila() != [] ):
     temp_pontos = tabuleiro.pontos
     fechar_garra()
@@ -135,6 +139,12 @@ while(tabuleiro.getFila() != [] ):
     posicao_inicial()
     subir_elevador()
     tabuleiro.print()
+    
+    ##################################################
+        
+    # Comentamos as heuristicas que não estão a ser usadas
+        
+    ##################################################
     # pos = heuristica_fila9(tabuleiro)
     pos = heuristica_pecaGrande(tabuleiro)
     # pos = heristica_gulosa(tabuleiro)
@@ -144,6 +154,12 @@ while(tabuleiro.getFila() != [] ):
         # pos = random.randint(0,24)
         #user_input = input();
 
+        ##################################################
+        
+        # Comentamos as heuristicas que não estão a ser usadas
+        
+        ##################################################
+        
         # pos = heuristica_fila9(tabuleiro)
         pos = heuristica_pecaGrande(tabuleiro)
         # pos = heristica_gulosa(tabuleiro)
@@ -165,5 +181,7 @@ while(tabuleiro.getFila() != [] ):
         while not (Button.CENTER in ev3.buttons.pressed()):
             sleep(0.1)
 
+# atualiza os pontos após a colocação da peça no tabuleiro
 print("Pontos:", tabuleiro.pontos)
+# apresenta o desenho do tabuleiro atualizado 
 tabuleiro.print()

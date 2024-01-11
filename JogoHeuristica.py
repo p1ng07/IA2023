@@ -5,7 +5,9 @@ from Jogo import Tabuleiro
 
 tabuleiro = Tabuleiro()
 
+# lista que servirá para fazer a reserva de posições para o tabuleiro 
 tabuleiroHeuristica = [" "]*25
+# contadores para a quantidade de cada peça 
 pecaX = 0
 pecaMenos = 0
 pecaMais = 0
@@ -15,7 +17,10 @@ tamanhoTabuleiro = 25
 # decide se é para por a próxima peça no início ou fim do tabuleiro relativamente à heurística
 por_inicio_da_heuristica = True
 
+# Heurística onde cada peça tem posições pré-determinadas para onde ir  
 def heristica_gulosa(tabuleiro):
+    # verifica se o 1º elemento na fila é 'X'
+    # se sim, verifica sequencialmente cada posição destinada a esta peça e coloca a peça na primeira posição válida encontrada  
     if(tabuleiro.fila[0] == "x"):
         if(tabuleiro.posicaoValida(0,0)):
             return 0
@@ -27,7 +32,9 @@ def heristica_gulosa(tabuleiro):
             return 10
         elif(tabuleiro.posicaoValida(2,2)):
             return 12
-        
+    
+    # verifica se o 1º elemento na fila é '+'
+    # se sim, verifica sequencialmente cada posição destinada a esta peça e coloca a peça na primeira posição válida encontrada 
     if(tabuleiro.fila[0] == "+"):
         if(tabuleiro.posicaoValida(1,2)):
             return 11
@@ -39,7 +46,9 @@ def heristica_gulosa(tabuleiro):
             return 17
         elif(tabuleiro.posicaoValida(1,4)):
             return 21
-        
+    
+    # verifica se o 1º elemento na fila é 'O'
+    # se sim, verifica sequencialmente cada posição destinada a esta peça e coloca a peça na primeira posição válida encontrada 
     if(tabuleiro.fila[0] == "O"):
         if(tabuleiro.posicaoValida(3,0)):
             return 3
@@ -50,6 +59,8 @@ def heristica_gulosa(tabuleiro):
         elif(tabuleiro.posicaoValida(4,1)):
             return 9
 
+    # verifica se o 1º elemento na fila é '-'
+    # se sim, verifica sequencialmente cada posição destinada a esta peça e coloca a peça na primeira posição válida encontrada 
     if(tabuleiro.fila[0] == "-"):
         if(tabuleiro.posicaoValida(3,4)):
             return 23
@@ -57,6 +68,8 @@ def heristica_gulosa(tabuleiro):
             return 24
         
     return 0
+
+# conta o número de cada tipo de peça na fila e atualiza os contadores 
 def getNumeroPecas(fila):
     global pecaBola, pecaMais, pecaMenos, pecaX
     pecaX = 0
@@ -73,14 +86,20 @@ def getNumeroPecas(fila):
         else:
             pecaBola += 1
 
+# Reserva uma posição no tabuleiroHeuristica, se essa estiver vazia
 def reservaPosicao(pos, peca):
     global tabuleiroHeuristica, tabuleiro
     if(tabuleiro.tabuleiro[pos] == " "):
         tabuleiroHeuristica[pos] = str(peca)
 
+# Reserva posições especifícas no tabuleiroHeuristica consoante o nº de peças disponíveis
 def pecasReserva(tabuleiro):
     global pecaBola, pecaMais, pecaMenos, pecaX, tabuleiroHeuristica
 
+    # se o número de peças do tipo 'O' for maior ou igual a 16 (é possível fazer a maior peça grande com este símbolo) verifica-se se  
+    # no tabuleiro real as posições onde seria feita esta peça estão vazias ou já reservadas com essa peça
+    # se sim, é feita a reserva no tabuleiroHeuristica nessas posições com o respetivo símbolo
+    # caso contrário tenta fazer peças mais pequenas
     if(pecaBola >= 16):
         if(
             (tabuleiro.tabuleiro[0] == " " or tabuleiro.tabuleiro[0] == "O" )and
@@ -300,10 +319,12 @@ def pecasReserva(tabuleiro):
                     print("Figura de 2 com a peça Menos.")
                     pecaMenos -= 2
                     return
-    
+ 
 def heuristica_fila9(tabuleiro):
   global por_inicio_da_heuristica
   
+  # se o jogo ainda não tiver começado, vai buscar os primeiros 9 elementos da fila 
+  # e reserva as peças consoante isso
   if tabuleiroHeuristica == [" "] * 25:
     getNumeroPecas(tabuleiro.getFila()[0:9])
     pecasReserva(tabuleiro)
@@ -312,6 +333,7 @@ def heuristica_fila9(tabuleiro):
   # Determinar porque reserva procurar
   peca = tabuleiro.fila[0]
 
+  # os valores passados na função 'pecasReserva' são associados ao seu simbolo
   caracteres = {"-": "3", "+": "1", "x": "2", "O": "0"}
   carater_reserva = caracteres.get(peca, None)
 
@@ -345,6 +367,8 @@ def heuristica_fila9(tabuleiro):
 def heuristica_pecaGrande(tabuleiro):
   global por_inicio_da_heuristica
   
+  # se o jogo ainda não tiver começado, vai buscar os elementos da fila 
+  # e reserva as peças consoante isso
   if tabuleiroHeuristica == [" "] * 25:
     getNumeroPecas(tabuleiro.getFila())
     pecasReserva(tabuleiro)
@@ -353,6 +377,7 @@ def heuristica_pecaGrande(tabuleiro):
   # Determinar porque reserva procurar
   peca = tabuleiro.fila[0]
 
+  # os valores passados na função 'pecasReserva' são associados ao seu simbolo
   caracteres = {"-": "3", "+": "1", "x": "2", "O": "0"}
   carater_reserva = caracteres.get(peca, None)
 
